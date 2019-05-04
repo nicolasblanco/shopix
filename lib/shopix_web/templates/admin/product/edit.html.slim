@@ -1,0 +1,13 @@
+.row
+  .col-lg-12
+    .card
+      .card-header
+        = gettext("Edit product")
+      .card-block
+        = render "form.html", changeset: @changeset,
+                              action: admin_product_path(@conn, :update, @product),
+                              properties: @properties,
+                              groups: @groups,
+                              product_properties: @product_properties,
+                              current_locale: @global_config.default_locale,
+                              conn: @conn

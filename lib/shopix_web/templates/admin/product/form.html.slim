@@ -1,0 +1,43 @@
+= form_for @changeset, @action, fn f ->
+  = if @conn.params["page"] do
+    input type="hidden" name="page" value=@conn.params["page"]
+  = if @changeset.action do
+    .alert.alert-danger
+      p = gettext("Oops, something went wrong! Please check the errors below.")
+
+  = input f, :sku, gettext("SKU")
+  = input f, :price, gettext("Price")
+
+  .form-group
+    label.form-control-label = gettext("Groups")
+    = hidden_input f, :group_ids, value: ""
+    = multiple_select f, :group_ids, Enum.map(@groups, fn group -> {group.key, group.id} end),  selected: (if Ecto.assoc_loaded?(@changeset.data.groups), do: Enum.map(@changeset.data.groups, &(&1.id)), else: []), class: "form-control selectize"
+
+  translate-attributes-component
+
+  product-properties-component
+
+  - translations = %{translations_in: gettext("Translations in"),
+                     properties: gettext("Properties"),
+                     add_property: gettext("Add property")}
+
+  javascript:
+    window.config.attributesComponentConfig = {
+      attributes: [{ name: "name", display_name: "#{gettext("Name")}", type: "string", value: #{to_json(f.data.name_translations)} },
+                   { name: "description", display_name: "#{gettext("Description")}", type: "text", rows: 10, value: #{to_json(f.data.description_translations)} }],
+      name: "product" }
+
+    window.config.defaultProductProperties = #{many_association_to_json(@product_properties, [:value_translations, :id, :property_id]) |> raw}
+    window.config.defaultProperties = #{many_to_json(@properties, [:key, :id]) |> raw}
+    window.config.t = #{translations |> Poison.encode! |> raw}
+
+  .form-group
+    label = gettext("Images")
+    | &nbsp;
+    .image-preview-multiple
+      = hidden_input f, :images_group_url, role: "uploadcare-uploader", data: ["images-only": "true", multiple: "true"]
+      div class="_list"
+
+  = Bootform.checkbox f, :displayed, gettext("Displayed")
+
+  = Bootform.submit gettext("Save")

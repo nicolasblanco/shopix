@@ -1,0 +1,31 @@
+.row
+  .col-lg-12
+    .card
+      .card-header
+        = gettext("Groups")
+        span.pull-right.small-margin-top
+          = link to: admin_group_path(@conn, :new), class: "btn btn-primary" do
+            i.fa.fa-magic
+            | &nbsp; #{gettext("New group")}
+
+      .card-block
+        = pagination_links @conn, @page, path: &admin_group_path/3
+
+        table.table.table-striped
+          thead
+            tr
+              th = gettext("Key")
+              th
+          tbody
+            = for group <- @groups do
+              tr
+                td = group.key
+                td.text-right
+                  .btn-group.btn-group-sm role="group"
+                    = link to: admin_product_path(@conn, :index, group_key: group.key), class: "btn btn-warning" do
+                      i.fa.fa-eye
+                      | &nbsp; #{gettext("See products")}
+                    = link gettext("Edit"), to: admin_group_path(@conn, :edit, group, options_reject_nil(page: @conn.params[:page])), class: "btn btn-primary"
+                    = link gettext("Delete"), to: admin_group_path(@conn, :delete, group), method: :delete, data: [confirm: gettext("Are you sure?")], class: "btn btn-danger"
+
+        = pagination_links @conn, @page, path: &admin_group_path/3

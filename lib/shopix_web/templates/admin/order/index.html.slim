@@ -1,0 +1,34 @@
+.row
+  .col-lg-12
+    .card
+      .card-header
+        = gettext "Orders"
+      .card-block
+        = pagination_links @conn, @page, path: &admin_order_path/3
+
+        table.table.table-striped
+          thead
+            tr
+              th = gettext "Email"
+              th = gettext "First name"
+              th = gettext "Last name"
+              th
+                = gettext "Completed at"
+                br
+                | (#{@global_config.default_timezone})
+              th = gettext "Total"
+              th
+          tbody
+            = for order <- @orders do
+              tr
+                td = order.email
+                td = order.first_name
+                td = order.last_name
+                td = datetime_format(@global_config, order.completed_at)
+                td = order.total_price
+                td.text-right
+                  .btn-group.btn-group-sm role="group"
+                    = link gettext("Show"), to: admin_order_path(@conn, :show, order), class: "btn btn-primary"
+                    /= link "Delete", to: admin_order_path(@conn, :delete, order), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger"
+
+        = pagination_links @conn, @page, path: &admin_order_path/3

@@ -1,0 +1,9 @@
+.row
+  .col-lg-12
+    .card
+      .card-header
+        = gettext "Edit group"
+      .card-block
+        = render "form.html", changeset: @changeset,
+                              action: admin_group_path(@conn, :update, @group),
+                              conn: @conn

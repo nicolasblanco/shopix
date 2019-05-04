@@ -1,0 +1,61 @@
+/* This file is for your main application css. */
+
+@import 'vendor/mytheme';
+
+@import 'vendor/material-icons';
+@import 'vendor/socicon';
+@import 'vendor/selectize.bootstrap3';
+@import 'vendor/intlTelInput';
+
+// @import "theme";
+
+[v-cloak] {
+  display: none;
+}
+
+.iti-flag {
+  background-image: url('/img/flags.png');
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (min--moz-device-pixel-ratio: 2),
+  only screen and (-o-min-device-pixel-ratio: 2 / 1),
+  only screen and (min-device-pixel-ratio: 2),
+  only screen and (min-resolution: 192dpi),
+  only screen and (min-resolution: 2dppx) {
+  .iti-flag {
+    background-image: url('/img/flags@2x.png');
+  }
+}
+.intl-tel-input {
+  width: 100%;
+}
+
+.embed-responsive {
+  overflow: visible;
+}
+
+.form-control[disabled],
+fieldset[disabled] .form-control {
+  cursor: not-allowed;
+}
+
+.form-control[disabled],
+fieldset[disabled] .form-control input {
+  background-color: #eeeeee;
+}
+
+.count-input .incr-btn a {
+  text-decoration: none;
+  color: #606060;
+}
+
+.alert.alert-danger {
+  background-color: #f59191;
+  color: #606060;
+  padding: 1em;
+}
+
+.lang-switcher .lang-dropdown {
+  width: 85px;
+}

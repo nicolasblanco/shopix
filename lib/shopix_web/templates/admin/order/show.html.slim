@@ -1,0 +1,112 @@
+.row
+  .col-lg-12
+    .card
+      .card-header
+        = gettext "Order"
+      .card-block
+        table.table
+          tbody
+            tr
+              td = gettext "First name"
+              td
+                strong = @order.first_name
+            tr
+              td = gettext "Last name"
+              td
+                strong = @order.last_name
+            tr
+              td = gettext "Email"
+              td
+                strong = @order.email
+            tr
+              td = gettext "Phone"
+              td
+                strong = @order.phone
+            tr
+              td = gettext "Company name"
+              td
+                strong = @order.company_name
+            tr
+              td = gettext "Address part 1"
+              td
+                strong = @order.address_1
+            tr
+              td = gettext "Address part 2"
+              td
+                strong = @order.address_2
+            tr
+              td = gettext "Zip code"
+              td
+                strong = @order.zip_code
+            tr
+              td = gettext "City"
+              td
+                strong = @order.city
+            tr
+              td = gettext "Country state"
+              td
+                strong = @order.country_state
+            tr
+              td = gettext "Country"
+              td
+                strong = @order.country_code
+
+.row
+  .col-lg-12
+    .card
+      .card-header
+        = gettext "Items"
+      .card-block
+        table.table
+          thead
+            tr
+              th = gettext "SKU"
+              th = gettext "Name"
+              th = gettext "Unit price"
+              th = gettext "Quantity"
+              th = gettext "Total price"
+          tbody
+            = for line_item <- @order.line_items do
+              tr
+                td = line_item.product_sku
+                td = if line_item.product, do: t_field(line_item.product, :name, @global_config.default_locale), else: "Unknown"
+                td = line_item.product_price
+                td = line_item.quantity
+                td = line_item.total_price
+
+.row
+  .col-lg-12
+    .card
+      .card-header
+        = gettext "Totals"
+      .card-block
+        table.table
+          tbody
+            tr
+              td = gettext "Total quantity"
+              td
+                strong = @order.total_quantity
+            tr
+              td = gettext "Items total price"
+              td
+                strong = @order.price_items
+            tr
+              td = gettext "Shipping cost"
+              td
+                strong = @order.shipping_cost_amount
+            tr
+              td = gettext "Tax percentage"
+              td
+                strong = "#{@global_config.vat_percentage}%"
+            tr
+              td = gettext "Price tax excluded"
+              td
+                strong = Money.new(Shopix.VatCalculator.ati_to_et(@order.vat_percentage, @order.total_price.amount))
+            tr
+              td = gettext "VAT amount"
+              td
+                strong = Money.new(Shopix.VatCalculator.vat_amount(@order.vat_percentage, @order.total_price.amount))
+            tr
+              td = gettext "Total price"
+              td
+                strong = @order.total_price

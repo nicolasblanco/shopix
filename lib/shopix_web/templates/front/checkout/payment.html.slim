@@ -1,0 +1,30 @@
+section.site-body
+  .container.mt-4
+    = form_for @conn, checkout_path(@conn, :validate_payment, @current_locale), [as: "payment", class: "checkout-form container", method: "put", id: "payment-form"], fn f ->
+      h2.large-title.mb-4.pb-2.bordered-bottom = t(@conn, ".payment.title")
+      .cart-subtotal.mb-4
+        .column
+          h3.small-title
+            small
+              = t(@conn, ".shipping_costs")
+              | &nbsp;
+              = @shipping_cost_amount
+            br
+            small
+              = t(@conn, ".total_price")
+              | &nbsp;
+              = @current_order.total_price
+
+      .payment#dropin-container
+
+      = hidden_input f, :nonce, id: "payment-nonce"
+
+      .text-right.mt-5.pt-5
+        = link to: checkout_path(@conn, :address, @current_locale), class: "btn mb-3 mb-sm-0 full-width-btn btn-cart btn-outline-dark no-radius mr-3" do
+          i.material-icons.arrow_back
+          = t(@conn, ".delivery.back_to_delivery")
+        button.btn-dark.full-width-btn.btn.no-radius#submit-payment
+          = t(@conn, ".delivery.confirm_payment")
+
+javascript:
+  window.config.braintreeClientToken = "#{@global_config.payment_gateway["provider_config"]["client_token"]}"

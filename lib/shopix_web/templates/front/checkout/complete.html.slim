@@ -1,0 +1,6 @@
+section.site-body
+  .container.mt-5.pt-5
+    h2.large-title.text-center.mb-4 = t(@conn, ".thank_you_for_your_order")
+    .d-flex.justify-content-center
+      = link to: home_path(@conn, :shop, @current_locale) do
+          button.btn.btn-dark.no-radius Continue Shopping

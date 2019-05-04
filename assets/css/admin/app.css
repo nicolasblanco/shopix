@@ -1,0 +1,37 @@
+/* This file is for your main application css. */
+
+.image-preview-multiple ._list {
+  padding-top: 20px;
+}
+
+.image-preview-multiple ._item {
+  padding: 0 0 10px;
+  display: inline-block;
+  text-align: center;
+  vertical-align: top;
+  width: 100px;
+  word-break: break-word;
+  font-size: 12px;
+  line-height: normal;
+}
+
+.image-preview-multiple ._item img {
+  display: block;
+  width: 80px;
+  height: 80px;
+  padding: 0 10px 6px;
+}
+
+.small-margin-top {
+  margin-top: 8px;
+}
+
+img.langs {
+  cursor: pointer;
+  padding-left: 0.2em;
+  padding-right: 0.2em;
+}
+
+img.langs.active {
+  border: 2px solid gray;
+}

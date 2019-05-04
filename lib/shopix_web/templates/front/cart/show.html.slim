@@ -1,0 +1,90 @@
+.site-body
+  .container
+    .cart-container.mt-5
+      h2.large-title.mb-4 Cart
+      = if @current_order && @current_order.total_quantity > 0 do
+        .shopping-cart
+          .column-labels.d-flex
+            label.product-image Image
+            label.product-details Product
+            label.product-price Price
+            label.product-quantity Quantity
+            label.product-removal Remove
+          = for line_item <- @current_order.line_items do  
+            .product.d-flex
+              .product-image
+                = img_tag(thumb_url(line_item.product))
+              .product-details
+                .product-title 
+                  = t_field(line_item.product, :name, @current_locale)
+              .product-price
+                  = line_item.product.price
+              .product-quantity
+                .d-flex.align-items-center
+                  .incr-btn
+                    = if line_item.quantity > 1 do
+                    = link "-", to: cart_path(@conn, :line_item_decrease, @current_locale, line_item_id: line_item.id), method: :put
+                  input.quantity.mr-2.ml-2 type="text" readonly="readonly" value="#{line_item.quantity}"
+                  .incr-btn
+                    = link "+", to: cart_path(@conn, :line_item_increase, @current_locale, line_item_id: line_item.id), method: :put
+              .product-removal
+                = link to: cart_path(@conn, :line_item_delete, @current_locale, line_item_id: line_item.id), method: :delete, class: "item-remove", data: [placement: "top", confirm: "Do you really want to remove this item from the cart?"] do
+                  button.remove-product.far.fa-trash-alt
+      
+          .totals
+            .totals-item.totals-item-total
+              label Grand Total
+              #cart-total.totals-value 
+                = @current_order.price_items
+ 
+        .d-sm-flex.d-block.justify-content-end.pt-5
+          = link to: checkout_path(@conn, :address, @current_locale), class: 'order-2' do
+            button.btn.btn-dark.no-radius.site-btn.full-width-btn.mb-3.mb-sm-0 Proceed to Checkout
+          = link to: home_path(@conn, :shop, @current_locale), class: 'order-1' do
+            button.btn.btn-outline-dark.no-radius.mr-4.full-width-btn Continue Shopping
+      - else
+        = t(@conn, ".you_dont_have_any_item_in_your_cart")
+        .text-right
+        = link t(@conn, ".continue_shopping"), to: home_path(@conn, :shop, @current_locale), class: "btn btn-dark mt-3 no-radius"
+      
+
+
+/ section.fw-section.padding-top-3x
+/   .container.padding-top
+
+/     #cart.toolbar-section
+/       .shopping-cart
+/         = if @current_order && @current_order.total_quantity > 0 do
+/           = for line_item <- @current_order.line_items do
+/             .item
+/               = link to: product_path(@conn, :show, @current_locale, t_slug(line_item.product, @current_locale)), class: "item-thumb" do
+/                 = img_tag(thumb_url(line_item.product))
+/               .item-details
+/                 h3.item-title
+/                   = link t_field(line_item.product, :name, @current_locale), to: product_path(@conn, :show, @current_locale, t_slug(line_item.product, @current_locale))
+/                 h4.item-price
+/                   = line_item.product.price
+/                 .count-input
+/                   .incr-btn
+/                     = if line_item.quantity > 1 do
+/                       = link "-", to: cart_path(@conn, :line_item_decrease, @current_locale, line_item_id: line_item.id), method: :put
+/                   input.quantity type="text" readonly="readonly" value="#{line_item.quantity}"
+/                   .incr-btn
+/                     = link "+", to: cart_path(@conn, :line_item_increase, @current_locale, line_item_id: line_item.id), method: :put
+/               = link to: cart_path(@conn, :line_item_delete, @current_locale, line_item_id: line_item.id), method: :delete, class: "item-remove", data: [placement: "top", confirm: "Do you really want to remove this item from the cart?"] do
+/                 i.material-icons.remove_shopping_cart
+
+/           .cart-subtotal.space-bottom
+/             .column
+/               h3.toolbar-title = t(@conn, ".total")
+/             .column
+/               h3.amount
+/                 = @current_order.price_items
+/           .text-right
+/             = link t(@conn, ".continue_shopping"), to: home_path(@conn, :shop, @current_locale), class: "btn btn-default btn-ghost close-dropdown"
+/             = link t(@conn, ".finalize_order"), to: checkout_path(@conn, :address, @current_locale), class: "btn btn-primary waves-effect waves-light toggle-section"
+
+/         - else
+/           = t(@conn, ".you_dont_have_any_item_in_your_cart")
+/           .text-right
+/             = link t(@conn, ".continue_shopping"), to: home_path(@conn, :shop, @current_locale), class: "btn btn-default btn-ghost close-dropdown"

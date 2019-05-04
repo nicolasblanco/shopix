@@ -1,0 +1,218 @@
+msgid "Orders today"
+msgstr "Commandes aujourd'hui"
+
+msgid "Dashboard"
+msgstr "Accueil"
+
+msgid "Products"
+msgstr "Produits"
+
+msgid "Properties"
+msgstr "Propriétés"
+
+msgid "Orders"
+msgstr "Commandes"
+
+msgid "Admin users"
+msgstr "Utilisateurs admin"
+
+msgid "Pages"
+msgstr "Pages"
+
+msgid "Translations"
+msgstr "Traductions"
+
+msgid "All"
+msgstr "Toutes"
+
+msgid "To do"
+msgstr "A faire"
+
+msgid "Account"
+msgstr "Compte"
+
+msgid "Logout"
+msgstr "Déconnexion"
+
+msgid "Orders this week"
+msgstr "Commandes cette semaine"
+
+msgid "Orders this month"
+msgstr "Commandes ce mois"
+
+msgid "New page"
+msgstr "Nouvelle page"
+
+msgid "Key"
+msgstr "Clé"
+
+msgid "Name"
+msgstr "Nom"
+
+msgid "See"
+msgstr "Voir"
+
+msgid "Edit"
+msgstr "Editer"
+
+msgid "Delete"
+msgstr "Supprimer"
+
+msgid "See in"
+msgstr "Voir en"
+
+msgid "Edit page"
+msgstr "Edition de la page"
+
+msgid "Edit product"
+msgstr "Edition du produit"
+
+msgid "SKU"
+msgstr "UGS (SKU)"
+
+msgid "Price"
+msgstr "Prix"
+
+msgid "New product"
+msgstr "Nouveau produit"
+
+msgid "Oops, something went wrong! Please check the errors below."
+msgstr "Oups, quelque chose s'est mal passé ! Veuillez vérifier les erreurs ci-dessous..."
+
+msgid "Are you sure?"
+msgstr "Voulez-vous vraiment faire cela ?"
+
+msgid "New property"
+msgstr "Nouvelle propriété"
+
+msgid "Edit property"
+msgstr "Edition de la propriété"
+
+msgid "Save"
+msgstr "Sauvegarder"
+
+msgid "Edit translation"
+msgstr "Edition de la traduction"
+
+msgid "Edit user"
+msgstr "Edition de l'utilisateur"
+
+msgid "New translation"
+msgstr "Nouvelle traduction"
+
+msgid "value"
+msgstr "valeur"
+
+msgid "Translations to do"
+msgstr "Traductions à faire"
+
+msgid "New user"
+msgstr "Nouvel utilisateur"
+
+msgid "Administration users"
+msgstr "Utilisateurs de l'administration"
+
+msgid "Edit administration user"
+msgstr "Edition de l'utilisateur de l'administration"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Password"
+msgstr "Mot de passe"
+
+msgid "New administration user"
+msgstr "Nouvel utilisateur de l'administration"
+
+msgid "First name"
+msgstr "Prénom"
+
+msgid "Last name"
+msgstr "Nom"
+
+msgid "Completed at"
+msgstr "Complétée le"
+
+msgid "Show"
+msgstr "Voir"
+
+msgid "Phone"
+msgstr "Téléphone"
+
+msgid "Company name"
+msgstr "Nom de l'entreprise"
+
+msgid "Address part 1"
+msgstr "Adresse partie 1"
+
+msgid "Address part 2"
+msgstr "Adresse partie 2"
+
+msgid "Zip code"
+msgstr "Code postal"
+
+msgid "City"
+msgstr "Ville"
+
+msgid "Country state"
+msgstr "Région"
+
+msgid "Country"
+msgstr "Pays"
+
+msgid "Order"
+msgstr "Commande"
+
+msgid "Items"
+msgstr "Eléments"
+
+msgid "Unit price"
+msgstr "Prix unitaire"
+
+msgid "Quantity"
+msgstr "Quantité"
+
+msgid "Total price"
+msgstr "Prix total"
+
+msgid "Totals"
+msgstr "Totaux"
+
+msgid "Total quantity"
+msgstr "Quantité totale"
+
+msgid "Items total price"
+msgstr "Prix total des éléments"
+
+msgid "Shipping cost"
+msgstr "Frais de port"
+
+msgid "Tax percentage"
+msgstr "Pourcentage TVA"
+
+msgid "Price tax excluded"
+msgstr "Prix Hors Taxe"
+
+msgid "VAT amount"
+msgstr "Montant TVA"
+
+msgid "Home"
+msgstr "Accueil"
+
+msgid "Value"
+msgstr "Valeur"
+
+msgid "Translations in"
+msgstr "Traductions en"
+
+msgid "Add property"
+msgstr "Ajouter propriété"
+
+msgid "Content"
+msgstr "Contenu"
+
+msgid "name"
+msgstr "Nom"
+
+msgid "Displayed"
+msgstr "Affiché"

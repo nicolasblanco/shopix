@@ -1,0 +1,31 @@
+.row
+  .col-lg-12
+    .card
+      .card-header
+        = gettext "Properties"
+        span.pull-right.small-margin-top
+          = link to: admin_property_path(@conn, :new), class: "btn btn-primary" do
+            i.fa.fa-magic
+            | &nbsp; #{gettext("New property")}
+
+      .card-block
+        = pagination_links @conn, @page, path: &admin_property_path/3
+
+        table.table.table-striped
+          thead
+            tr
+              th = gettext("Key")
+              th
+                = gettext("Name")
+              th
+          tbody
+            = for property <- @properties do
+              tr
+                td = property.key
+                td = t_field(property, :name, @global_config.default_locale)
+                td.text-right
+                  .btn-group.btn-group-sm role="group"
+                    = link gettext("Edit"), to: admin_property_path(@conn, :edit, property, options_reject_nil(page: @conn.params["page"])), class: "btn btn-primary"
+                    = link gettext("Delete"), to: admin_property_path(@conn, :delete, property), method: :delete, data: [confirm: gettext("Are you sure?")], class: "btn btn-danger"
+
+        = pagination_links @conn, @page, path: &admin_property_path/3

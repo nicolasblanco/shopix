@@ -1,0 +1,13 @@
+.mt-5.d-flex.justify-content-center
+  .col-sm-11
+    .list-wrapper
+      .row.justify-content-sm-start.justify-content-center
+        = for product <- @products do
+          .col-md-4.col-lg-3.col-sm-6.col-10
+            .product-list-singlewrap.product-column
+              = link to: product_path(@conn, :show, @current_locale, t_slug(product, @current_locale)) do
+                .product-single-image
+                  = img_tag image_url(product), class: "img-contain"
+                  .product-single-name.d-flex.justify-content-between.pr-2.pl-2.pb-2
+                    h5.text-truncate.product-single-title = t_field(product, :name, @current_locale)
+                    .product-price-single = product.price

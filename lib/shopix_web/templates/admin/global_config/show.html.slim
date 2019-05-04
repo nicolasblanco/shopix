@@ -1,0 +1,26 @@
+.row
+  .col-lg-12
+    .card
+      .card-header
+        = gettext("Edit global configuration")
+      .card-block
+        = form_for @changeset, admin_global_config_path(@conn, :update), fn f ->
+          = if @changeset.action do
+            .alert.alert-danger
+              p = gettext("Oops, something went wrong! Please check the errors below.")
+
+          = input f, :name, gettext("Name")
+          = Bootform.checkbox f, :shop_opened, gettext("Shop opened")
+          = input f, :vat_percentage, gettext("VAT percentage")
+          .form-group
+            label.form-control-label = gettext("Available locales")
+            = multiple_select f, :available_locales, ["en", "fr", "de", "es", "it", "nl", "pt", "ru", "jp", "ko", "zh"], class: "form-control selectize"
+          = input f, :default_locale, gettext("Default locale"), options: f.data.available_locales
+          = input f, :emails_from, gettext("Emails from")
+          = input f, :default_timezone, gettext("Default time zone"), options: Timex.timezones, class: "form-control selectize"
+          = input f, :shipping_cost_default_amount, gettext("Shipping cost default amount")
+          = input f, :upload_provider_public_key, gettext("Uploadcare public key")
+
+          = input f, :payment_gateway, gettext("Payment Gateway"), type: :textarea, value: f.data.payment_gateway |> Poison.encode!
+
+          = Bootform.submit gettext("Save")

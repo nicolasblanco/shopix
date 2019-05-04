@@ -1,0 +1,39 @@
+.row
+  .col-lg-12
+    .card
+      .card-header
+        = gettext "Pages"
+        span.pull-right.small-margin-top
+          = link to: admin_page_path(@conn, :new), class: "btn btn-primary" do
+            i.fa.fa-magic
+            | &nbsp; #{gettext("New page")}
+
+      .card-block
+        = pagination_links @conn, @page, path: &admin_page_path/3
+
+        table.table.table-striped
+          thead
+            tr
+              th = gettext "Key"
+              th = gettext "Name"
+              th
+          tbody
+            = for page <- @pages do
+              tr
+                td = page.key
+                td = t_field(page, :name, @global_config.default_locale)
+                td.text-right
+                  .btn-group.btn-group-sm role="group"
+                    a href="#" target="_blank" class="btn btn-warning dropdown-toggle" data-toggle="dropdown"
+                      i.fa.fa-eye
+                      | &nbsp; #{gettext("See")}
+                    ul.dropdown-menu
+                      = for locale <- locales_filled_on(@conn, page, :slug) do
+                        li
+                          = link to: page_path(@conn, :show, locale, t_slug(page, locale)), target: "_blank" do
+                            = img_tag "/img/flags/#{locale}.png", style: "width: 2em;"
+                            = "#{gettext("See in")} #{locale}"
+                    = link gettext("Edit"), to: admin_page_path(@conn, :edit, page, options_reject_nil(page: @conn.params["return_page"])), class: "btn btn-primary"
+                    = link gettext("Delete"), to: admin_page_path(@conn, :delete, page), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger"
+
+        = pagination_links @conn, @page, path: &admin_page_path/3

@@ -1,0 +1,13 @@
+.row
+  .col-lg-12
+    .card
+      .card-header
+        = gettext "New product"
+      .card-block
+        = render "form.html", changeset: @changeset,
+                              action: admin_product_path(@conn, :create),
+                              groups: @groups,
+                              properties: @properties,
+                              product_properties: @product_properties,
+                              current_locale: @global_config.default_locale,
+                              conn: @conn

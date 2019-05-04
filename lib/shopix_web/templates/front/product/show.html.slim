@@ -1,0 +1,139 @@
+.site-body
+  .container-fluid
+    .row.product-row
+      .col-lg-7
+        .row
+          .col-lg-3
+            .product-slides-thumb.d-none.d-lg-flex
+
+                = for image <- images_with_index(@product) do
+                  .slides-thumb
+                    = content_tag :a, href: "#img#{image.index + 1}", class: if(image.index == 0, do: "active", else: "") do
+                      = img_tag image.thumb_url, class: "img-fluid"
+
+          .col-lg-9
+            .product-slides
+
+                = for image <- images_with_index(@product) do
+                  = content_tag :div, id: "img#{image.index + 1}", class: "slides" do
+                    a data-fancybox="images" href=image.url
+                      = img_tag image.url, class: "img-fluid"
+
+      .col-lg-5
+        .product-specs.pt-5.mb-5.pr-5.pl-5
+          .product-title
+            h4.mb-2 = t_field(@product, :name, @current_locale)
+          .product-price-area.mb-3 = @product.price
+          .product-description.mb-5
+            p = t_field(@product, :description, @current_locale) |> raw()
+          .cart-btn
+            = link to: cart_path(@conn, :add, @current_locale, product_id: @product.id), method: :post, class: "btn btn-cart btn-outline-dark no-radius btn-block" do
+              = t(@conn, ".add_to_cart")
+
+          .product-detailed-specs.mt-5
+            h5.mb-4 In the Details
+
+          = for group_of_properties <- properties_prefixed_by(@product.product_properties, "add-info") |> in_groups(2) do
+            = for product_property <- group_of_properties do
+              .detail-row.d-flex.justify-content-between.mb-2
+                label = t_field(product_property.property, :name, @current_locale)
+                .value = t_field(product_property, :value, @current_locale)
+
+    .product-suggestion-row.d-flex.justify-content-start.justify-content-lg-center.mt-5.mb-4
+      .col-12.col-lg-11
+        h2.large-title.mb-4 Related Products
+        .list-wrapper
+          .row.justify-content-sm-start.justify-content-center
+
+            = for product <- @related_products do
+
+              .col-md-4.col-lg-3.col-sm-6.col-10
+                .product-list-singlewrap.product-column
+                  = link to: product_path(@conn, :show, @current_locale, t_slug(product, @current_locale)) do
+                    .product-single-image
+                      = img_tag image_url(product), class: "img-contain"
+                      .product-single-name.d-flex.justify-content-between.pr-2.pl-2.pb-2
+                        h5.text-truncate.product-single-title = t_field(product, :name, @current_locale)
+                        .product-price-single = product.price
+
+
+  / section.fw-section.padding-top-3x
+  /   = if @previous_product do
+  /     = link to: product_path(@conn, :show, @current_locale, t_slug(@previous_product, @current_locale)), class: "page-nav page-prev" do
+  /       span.page-preview
+  /         = img_tag thumb_url(@previous_product)
+  /       | — Prev
+  /   = if @next_product do
+  /     = link to: product_path(@conn, :show, @current_locale, t_slug(@next_product, @current_locale)), class: "page-nav page-next" do
+  /       span.page-preview
+  /         = img_tag thumb_url(@next_product)
+  /       | Next —
+
+  /   .container.padding-top
+  /     .product-gallery
+  /       ul.product-gallery-preview
+  /         = for image <- images_with_index(@product) do
+  /           = content_tag :li, id: "preview#{image.index + 1}", class: if(image.index == 0, do: "current", else: "") do
+  /             = img_tag image.url
+
+  /       ul.product-gallery-thumblist
+  /         = for image <- images_with_index(@product) do
+  /           li
+  /             = content_tag :a, href: "#preview#{image.index + 1}" do
+  /               = img_tag image.thumb_url
+
+  / section#product-app.fw-section.padding-bottom-2x
+  /   .container
+  /     .product-info.padding-top-2x.text-center
+  /       h1.h2.space-bottom-half = t_field(@product, :name, @current_locale)
+  /       h2
+  /         = @product.price
+
+  /       .product-tools.shop-item
+  /         = link to: cart_path(@conn, :add, @current_locale, product_id: @product.id), method: :post, class: "btn" do
+  /           = t(@conn, ".add_to_cart")
+
+  / section.container.padding-top-2x
+  /   ul.nav-tabs.text-center role="tablist"
+  /     li.active
+  /       a data-toggle="tab" href="#description" role="tab" = t(@conn, ".description")
+  /     li
+  /       a data-toggle="tab" href="#additional" role="tab" = t(@conn, ".additional_info")
+
+  /   .tab-content
+  /     #description.tab-pane.transition.fade.in.active role="tabpanel"
+  /       .row.space-top
+  /         = if product_property_for(@product, "youtube_video_id") do
+  /           .col-md-6.space-bottom
+  /             .embed-responsive.embed-responsive-16by9
+  /               iframe#ytplayer frameborder="0" src="https://www.youtube.com/embed/#{t_field(product_property_for(@product, "youtube_video_id"), :value, @current_locale)}?rel=0&amp;showinfo=0" type="text/html"
+  /           .col-md-6
+  /             p = t_field(@product, :description, @current_locale) |> raw()
+  /         - else
+  /           .col-md-12.space-top
+  /             p = t_field(@product, :description, @current_locale) |> raw()
+
+  /     #additional.tab-pane.transition.fade role="tabpanel"
+  /       .row(style="margin-top: 60px;")
+  /         = for group_of_properties <- properties_prefixed_by(@product.product_properties, "add-info") |> in_groups(2) do
+  /           .col-md-6
+  /             table.table-no-border
+  /               = for product_property <- group_of_properties do
+  /                 tr
+  /                   th = t_field(product_property.property, :name, @current_locale)
+  /                   td = t_field(product_property, :value, @current_locale)
+
+  / section.container.padding-top.padding-bottom
+  /   hr
+  /   h3.padding-top = t(@conn, ".you_may_also_like")
+  /   .row.padding-top
+  /     = for product <- @related_products do
+  /       .col-lg-3.col-sm-6
+  /         .shop-item
+  /           .shop-thumbnail
+  /             = link "", to: product_path(@conn, :show, @current_locale, t_slug(product, @current_locale)), class: "item-link"
+  /             = img_tag image_url(product)
+
+  /           .shop-item-details
+  /             h3.shop-item-title
+  /               = link t_field(product, :name, @current_locale), to: product_path(@conn, :show, @current_locale, t_slug(product, @current_locale))

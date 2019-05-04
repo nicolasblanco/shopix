@@ -1,0 +1,10 @@
+= form_for @changeset, @action, fn f ->
+  = if @conn.params["page"] do
+    input type="hidden" name="page" value=@conn.params["page"]
+  = if @changeset.action do
+    .alert.alert-danger
+      p = gettext("Oops, something went wrong! Please check the errors below.")
+
+  = input f, :key, gettext("Key")
+
+  = Bootform.submit gettext("Save")

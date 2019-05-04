@@ -1,0 +1,152 @@
+doctype html
+html lang="en"
+  head
+    meta content="text/html; charset=UTF-8" http-equiv="Content-Type"
+    title Shopix
+    /! Required meta tags
+    meta charset="utf-8"
+    meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"
+    meta property="og:title" content="Shopix"
+    link href="/img/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"
+    link href="/img/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"
+    link href="/img/favicon.ico" rel="icon" type="image/ico"
+    /! Custom built theme - This already includes Bootstrap 4
+    link href=static_path(@conn, "/css/front.css") rel="stylesheet"
+
+    link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.3.1/css/solid.css" integrity="sha384-VGP9aw4WtGH/uPAOseYxZ+Vz/vaTb1ehm1bwx92Fm8dTrE+3boLfF1SpAtB1z7HW" rel="stylesheet"
+    link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.3.1/css/regular.css" integrity="sha384-ZlNfXjxAqKFWCwMwQFGhmMh3i89dWDnaFU2/VZg9CvsMGA7hXHQsPIqS+JIAmgEq" rel="stylesheet"
+    link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.3.1/css/brands.css" integrity="sha384-rf1bqOAj3+pw6NqYrtaE1/4Se2NBwkIfeYbsFdtiR6TQz0acWiwJbv1IM/Nt/ite" rel="stylesheet"
+    link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.3.1/css/fontawesome.css" integrity="sha384-1rquJLNOM3ijoueaaeS5m+McXPJCGdr5HcA03/VHXxcp2kX2sUrQDmFc3jR5i/C7" rel="stylesheet"
+    link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+
+    script src="https://js.braintreegateway.com/web/dropin/1.13.0/js/dropin.min.js"
+
+    javascript:
+      window.config = {}
+      window.config.currentLocale = "#{@current_locale}"
+      window.config.heroHomePageRedirectTo = "#{home_path(@conn, :shop, @current_locale)}"
+  body
+    .header
+      nav.navbar.navbar-expand-lg.navbar-light
+        ul.navbar-nav.d-flex.justify-content-between.w-100.align-items-center.flex-row
+          li.nav-item
+            a.nav-link.text-uppercase href=product_path(@conn, :index, @current_locale) SHOP
+          li.nav-item.pr-lg-5.pl-lg-5
+            a.link href=home_path(@conn, :index, @current_locale)
+              .brand-identity.d-flex.align-items-center.justify-content-center
+                img#logo.img-fluid alt="site-logo" src="/img/logo.png" /
+          li.nav-item
+            a#cart-open.nav-link.text-uppercase.d-flex.align-items-center.cart-content.has-product href=cart_path(@conn, :show, @current_locale)
+              .cart-notification
+                = if @current_order && @current_order.total_quantity > 0 do
+                  = @current_order.total_quantity
+              | CART
+      .rollover-cart.d-none.d-md-block
+        .rollover-cart-head.d-flex.justify-content-between.align-items-center.mb-4
+          .left-part
+            .total-details
+              span.number-of-item.mr-4.color-light
+                | 1 item
+              span.total-price
+                | €29
+          .right-part.d-flex.justify-content-between
+            a.cart-link href=""  View Cart
+            a#close-cart.cart-link href=""  Close
+        .product-list-section.d-flex.justify-content-between
+          .cart-product-list-section
+            .cart-product-list.d-flex
+              .cart-product-list-single.d-flex.align-items-start.mr-5
+                .product-image.mr-3
+
+                .cart-product-detail-area
+                  .product-title Cocoon White
+                  .product-price €29
+                  .product-quantity.color-light
+                    span.mr-2> Quantity:
+                    | 1
+                  .remove-from-cart.mt-1
+                    button.remove-btn Remove
+          .cart-summary-section
+            .sub-total.d-flex.justify-content-between.mb-3
+              span.color-light Sub-total
+              span.value €29
+            .sub-total.d-flex.justify-content-between.mb-3
+              span.color-light Delivery
+              span.value Free delivery
+            .cart-button.mt-3
+              button.btn.btn-dark.no-radius.btn-block Checkout
+    .site-body
+      = if get_flash(@conn, :info) do
+        p.alert.alert-info role="alert" = get_flash(@conn, :info)
+      = if get_flash(@conn, :error) do
+        p.alert.alert-danger role="alert" = get_flash(@conn, :error)
+
+      = render @view_module, @view_template, assigns
+
+      .footer.p-3
+        .d-lg-flex.justify-content-lg-between.flex-wrap.justify-content-center.text-center.d-block
+          .company-part-links.d-lg-flex.d-block.justify-content-center
+            .footer-brand.bordered-right.pr-lg-3.mr-lg-3.mb-2.mb-lg-0
+              a.text-uppercase.footer-link href=""  Shopix &copy; 2019
+            .footer-link-list.mb-2.mb-lg-0
+              a.footer-link.text-uppercase.mr-md-3.d-block.d-md-inline-block href=""  TERMS AND CONDITIONS
+              a.footer-link.text-uppercase.mr-md-3.d-block.d-md-inline-block href=""  PRIVACY POLICY
+              a.footer-link.text-uppercase.d-block.d-md-inline-block href=""  SHIPPING
+          .contact-part.d-lg-flex.d-block
+            .contact-part-list.bordered-right.mr-md-3.mb-2.mb-lg-0
+              a.footer-link.text-uppercase.mr-md-3.d-block.d-md-inline-block href="tel:+"  Call Us: +
+              a.footer-link.text-uppercase.mr-md-3.d-block.d-md-inline-block href="mailto:me@nicolasblan.co"  me@nicolasblan.co
+            .social-list
+              a.footer-link.mr-2 href="https://www.facebook.com/Nicolas-Blanco-456873598386364"
+                i.fab.fa-facebook-square
+              a.footer-link href="https://www.instagram.com/nicolasblanco42"
+                i.fab.fa-instagram
+
+      script src=static_path(@conn, "/js/vendor/front.js")
+      script src=static_path(@conn, "/js/front.js")
+
+
+      javascript:
+        //var trigger = document.querySelector('#cart-open');
+        //var closeMenu = document.querySelector('#close-cart');
+        //function openCart(trigger) {
+          //trigger.addEventListener('click', function (e) {
+            //if (window.outerWidth > 768) {
+              //e.preventDefault();
+              //var cart = document.querySelector('.rollover-cart');
+              //cart.classList.toggle('show-cart');
+            //}
+          //});
+        //}
+        //openCart(trigger);
+        //openCart(closeMenu);
+
+        $(window).on('load resize orientationchange', function () {
+          $('.product-slides').each(function () {
+            var $carousel = $(this);
+            /* Initializes a slick carousel only on mobile screens */
+            // slick on mobile
+            if ($(window).width() > 991) {
+              if ($carousel.hasClass('slick-initialized')) {
+                $carousel.slick('unslick');
+              }
+            }
+            else {
+              if (!$carousel.hasClass('slick-initialized')) {
+                $carousel.slick({
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
+                  mobileFirst: true,
+                  prevArrow: '<button type="button" class="slick-prev fas fa-angle-left"></button>',
+                  nextArrow: '<button type="button" class="slick-next fas fa-angle-right"></button>'
+                });
+              }
+            }
+          });
+        });
+
+        var navbar = document.querySelector('.product-slides-thumb');
+        if(navbar){
+          var scrollspy = new VanillaScrollspy(navbar);
+          scrollspy.init();
+        }

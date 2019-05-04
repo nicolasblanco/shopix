@@ -1,0 +1,14 @@
+doctype html
+html lang="en"
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type"
+    meta charset="utf-8"
+    meta content="IE=edge" http-equiv="X-UA-Compatible"
+    meta content="width=device-width, initial-scale=1" name="viewport"
+    meta content="Shopix Back-Office" name="description"
+    meta content="Nicolas Blanco" name="author"
+    title Hello Shopix!
+    link href="#{static_path(@conn, "/css/admin.css")}" rel="stylesheet"
+    link rel="shortcut icon" href="#{static_path(@conn, "/img/favicon.png")}"
+  body.app.flex-row.align-items-center
+    = render @view_module, @view_template, assigns

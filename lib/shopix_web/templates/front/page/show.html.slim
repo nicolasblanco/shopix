@@ -1,0 +1,4 @@
+.featured-image style=("background-image: url(#{image_url(@page)});")
+
+section.container.padding-top-3x.padding-bottom-3x
+  = t_field(@page, :content, @current_locale) |> raw

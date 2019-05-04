@@ -1,0 +1,28 @@
+.row
+  .col-lg-12
+    .card
+      .card-header
+        = gettext "Administration users"
+        span.pull-right.small-margin-top
+          = link to: admin_user_path(@conn, :new), class: "btn btn-primary" do
+            i.fa.fa-magic
+            | &nbsp; #{gettext("New user")}
+
+      .card-block
+        = pagination_links @conn, @page, path: &admin_user_path/3
+
+        table.table.table-striped
+          thead
+            tr
+              th = gettext "email"
+              th
+          tbody
+            = for user <- @users do
+              tr
+                td = user.email
+                td.text-right
+                  .btn-group.btn-group-sm role="group"
+                    = link gettext("Edit"), to: admin_user_path(@conn, :edit, user, options_reject_nil(page: @conn.params["page"])), class: "btn btn-primary"
+                    = link gettext("Delete"), to: admin_user_path(@conn, :delete, user), method: :delete, data: [confirm: gettext("Are you sure?")], class: "btn btn-danger"
+
+        = pagination_links @conn, @page, path: &admin_user_path/3

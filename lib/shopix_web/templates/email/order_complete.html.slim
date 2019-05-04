@@ -1,0 +1,100 @@
+h1 = t(@conn, "email.order_complete.thank_you")
+
+p = t(@conn, "email.order_complete.description")
+
+table
+  tbody
+    tr
+      td = t(@conn, "email.order_complete.first_name")
+      td
+        strong = @order.first_name
+    tr
+      td = t(@conn, "email.order_complete.last_name")
+      td
+        strong = @order.last_name
+    tr
+      td = t(@conn, "email.order_complete.email")
+      td
+        strong = @order.email
+    tr
+      td = t(@conn, "email.order_complete.phone")
+      td
+        strong = @order.phone
+    tr
+      td = t(@conn, "email.order_complete.company_name")
+      td
+        strong = @order.company_name
+    tr
+      td = t(@conn, "email.order_complete.address_part_1")
+      td
+        strong = @order.address_1
+    tr
+      td = t(@conn, "email.order_complete.address_part_2")
+      td
+        strong = @order.address_2
+    tr
+      td = t(@conn, "email.order_complete.zip_code")
+      td
+        strong = @order.zip_code
+    tr
+      td = t(@conn, "email.order_complete.city")
+      td
+        strong = @order.city
+    tr
+      td = t(@conn, "email.order_complete.country_state")
+      td
+        strong = @order.country_state
+    tr
+      td = t(@conn, "email.order_complete.country")
+      td
+        strong = @order.country_code
+
+table
+  thead
+    tr
+      th = t(@conn, "email.order_complete.sku")
+      th = t(@conn, "email.order_complete.name")
+      th = t(@conn, "email.order_complete.unit_price")
+      th = t(@conn, "email.order_complete.quantity")
+      th = t(@conn, "email.order_complete.total_price")
+  tbody
+    = for line_item <- @order.line_items do
+      tr
+        td = line_item.product_sku
+        td = if line_item.product, do: t_field(line_item.product, :name, @current_locale), else: t(@conn, "email.order_complete.unknown")
+        td = line_item.product_price
+        td = line_item.quantity
+        td = line_item.total_price
+
+table
+  tbody
+    tr
+      td = t(@conn, "email.order_complete.total_quantity")
+      td
+        strong = @order.total_quantity
+    tr
+      td = t(@conn, "email.order_complete.items_total_price")
+      td
+        strong = @order.price_items
+    tr
+      td = t(@conn, "email.order_complete.shipping_cost")
+      td
+        strong = @order.shipping_cost_amount
+    tr
+      td = t(@conn, "email.order_complete.tax_percentage")
+      td
+        strong = "#{@order.vat_percentage}%"
+    tr
+      td = t(@conn, "email.order_complete.price_tax_excluded")
+      td
+        strong = Money.new(Shopix.VatCalculator.ati_to_et(@order.vat_percentage, @order.total_price.amount))
+    tr
+      td = t(@conn, "email.order_complete.vat_amount")
+      td
+        strong = Money.new(Shopix.VatCalculator.vat_amount(@order.vat_percentage, @order.total_price.amount))
+    tr
+      td = t(@conn, "email.order_complete.total_price")
+      td
+        strong = @order.total_price
+
+p = t(@conn, "email.order_complete.footer")

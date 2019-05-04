@@ -1,0 +1,73 @@
+section.site-body
+  .container.mt-4
+    h2.large-title.mb-4.pb-2.bordered-bottom = t(@conn, ".address.title")
+    = form_for @changeset, checkout_path(@conn, :validate_address, @current_locale), [method: "put", class: "checkout-form"], fn f ->
+      .row
+        .col-md-4.order-md-2.mb-4
+          .totals
+            .d-flex.justify-content-between
+              label Total Product(s)
+              #cart-subtotal 
+                | #{@current_order.total_quantity} #{t(@conn, ".address.items")}
+            .d-flex.justify-content-between
+              label Total Amount
+              #cart-tax 
+                | #{@current_order.price_items}
+ 
+
+        .col-md-8.order-md-1
+          h4.small-title.mb-4.d-flex.justify-content-between
+            | Enter Shipping Address
+          / = if @changeset.action do
+          /   .alert.alert-danger
+          /     p = t(@conn, ".address.error")
+
+          .row
+            .col-sm-6
+              label First Name
+              = input f, :first_name, false, tabindex: "1", class: "form-control no-radius"
+            .col-sm-6
+              label Last Name
+              = input f, :last_name, false, tabindex: "10", class: "form-control no-radius"
+          .row
+            .col-sm-6
+              label Company Address
+              = input f, :company_name, false, tabindex: "11", class: "form-control no-radius"
+            .col-sm-6
+              label Phone
+              = input f, :phone, false, tabindex: "15", name: "phone", id: "phone-input", class: "form-control no-radius"
+              = hidden_input f, :phone, id: "phone-intl-format", class: "form-control no-radius"
+          .row
+            .col-sm-6
+              label Email
+              = input f, :email, false, tabindex: "16", class: "form-control no-radius"
+            .col-sm-6
+              .form-group
+                input.form-control.no-radius.d-none type="text" disabled="disabled"
+
+          .row
+            .col-sm-6
+              label Address 1
+              = input f, :address_1, false, tabindex: "30", class: "form-control no-radius"
+            .col-sm-6
+              label Address 2
+              = input f, :address_2, false, tabindex: "35", class: "form-control no-radius"
+
+          .row
+            .col-sm-6
+              label Zip Code
+              = input f, :zip_code, false, tabindex: "40", class: "form-control no-radius"
+            .col-sm-6
+              label City
+              = input f, :city, false, tabindex: "50", class: "form-control no-radius"
+
+          .row
+            .col-sm-6
+              label Country
+              .form-element.form-select
+                = select f, :country_code, @countries, prompt: "", tabindex: "55", class: "form-control no-radius", id: "selectize-countries"
+                = error_tag f, :country_code
+
+          .row.justify-content-center.mb-5.mt-5
+            .col-md-8.col-12
+              button.btn-dark.btn.btn-block.no-radius.full-width-btn = t(@conn, ".address.confirm_address")

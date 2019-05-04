@@ -1,0 +1,33 @@
+.row
+  .col-lg-12
+    .card
+      .card-header
+        = if @conn.params["to_translate"] == "true" do
+          = gettext "Translations to do"
+        - else
+          = gettext "Translations"
+          span.pull-right.small-margin-top
+            = link to: admin_translation_path(@conn, :new), class: "btn btn-primary" do
+              i.fa.fa-magic
+              | &nbsp; #{gettext("New translation")}
+
+      .card-block
+        = pagination_links @conn, @page, path: &admin_translation_path/3
+
+        table.table.table-striped
+          thead
+            tr
+              th = gettext("Key")
+              th = gettext("Value")
+              th
+          tbody
+            = for translation <- @translations do
+              tr
+                td = translation.key
+                td = t_field(translation, :value, @global_config.default_locale) |> truncate(max_length: 80)
+                td.text-right
+                  .btn-group.btn-group-sm role="group"
+                    = link gettext("Edit"), to: admin_translation_path(@conn, :edit, translation, options_reject_nil(to_translate: @conn.params["to_translate"], page: @conn.params["page"])), class: "btn btn-primary"
+                    = link gettext("Delete"), to: admin_translation_path(@conn, :delete, translation), method: :delete, data: [confirm: gettext("Are you sure?")], class: "btn btn-danger"
+
+        = pagination_links @conn, @page, path: &admin_translation_path/3

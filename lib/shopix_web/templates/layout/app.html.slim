@@ -1,0 +1,116 @@
+doctype html
+html lang="en" id="admin-app"
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type"
+    meta charset="utf-8"
+    meta content="IE=edge" http-equiv="X-UA-Compatible"
+    meta content="width=device-width, initial-scale=1" name="viewport"
+    meta content="Shopix Back-Office" name="description"
+    meta content="Nicolas Blanco" name="author"
+    title Hello Shopix!
+    link href="#{static_path(@conn, "/css/admin.css")}" rel="stylesheet"
+    link rel="shortcut icon" href="#{static_path(@conn, "/img/favicon.png")}"
+    javascript:
+      UPLOADCARE_PUBLIC_KEY = "#{@global_config.upload_provider_public_key}"
+      UPLOADCARE_LOCALE = "#{@admin_current_locale}"
+      window.config = {}
+      window.config.defaultLocale = "#{@global_config.default_locale}"
+      window.config.availableLocales = #{to_json(@global_config.available_locales)}
+  body.app.header-fixed.sidebar-fixed.aside-menu-fixed.aside-menu-hidden
+    header.app-header.navbar
+      button.navbar-toggler.mobile-sidebar-toggler.d-lg-none type="button"  ☰
+      = link "", to: admin_home_path(@conn, :index), class: "navbar-brand"
+      ul.nav.navbar-nav.d-md-down-none
+        li.nav-item
+          a.nav-link.navbar-toggler.sidebar-toggler href="#"  ☰
+      ul.nav.navbar-nav.ml-auto
+        li.nav-item.dropdown style="padding-right: 1em;"
+          a.nav-link.dropdown-toggle.nav-link aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
+            img.img-avatar alt="admin@bootstrapmaster.com" src="#{static_path(@conn, "/img/logo_shopix.png")}"
+            span.d-md-down-none = @current_user.email
+          .dropdown-menu.dropdown-menu-right
+            .dropdown-header.text-center
+              strong = gettext "Account"
+            .divider
+            = link to: admin_session_path(@conn, :delete), class: "dropdown-item" do
+              i.fa.fa-lock
+              = gettext "Logout"
+    .app-body
+      .sidebar
+        nav.sidebar-nav
+          ul.nav
+            li.nav-item
+              = link to: admin_home_path(@conn, :index), class: "nav-link" do
+                i.icon-speedometer
+                = gettext "Dashboard"
+                span.badge.badge-info NEW
+            li.nav-title
+              = gettext "Back-office"
+            li.nav-item.nav-dropdown
+              a.nav-link.nav-dropdown-toggle href="#"
+                i.fa.fa-cube
+                = gettext "Products"
+              ul.nav-dropdown-items
+                li.nav-item
+                  = link to: admin_product_path(@conn, :index), class: "nav-link" do
+                    i.fa.fa-cube
+                    = gettext "Products"
+                li.nav-item
+                  = link to: admin_group_path(@conn, :index), class: "nav-link" do
+                    i.fa.fa-object-group
+                    = gettext "Groups"
+                li.nav-item
+                  = link to: admin_property_path(@conn, :index), class: "nav-link" do
+                    i.fa.fa-th-list
+                    = gettext "Properties"
+            li.nav-item
+              = link to: admin_order_path(@conn, :index), class: "nav-link" do
+                i.fa.fa-shopping-cart
+                = gettext "Orders"
+            li.nav-item
+              = link to: admin_user_path(@conn, :index), class: "nav-link" do
+                i.fa.fa-users
+                = gettext "Admin users"
+            li.nav-item
+              = link to: admin_page_path(@conn, :index), class: "nav-link" do
+                i.fa.fa-book
+                = gettext "Pages"
+            li.nav-item.nav-dropdown
+              a.nav-link.nav-dropdown-toggle href="#"
+                i.fa.fa-language
+                = gettext "Translations"
+              ul.nav-dropdown-items
+                li.nav-item
+                  = link to: admin_translation_path(@conn, :index), class: "nav-link" do
+                    i.fa.fa-language
+                    = gettext "All"
+                li.nav-item
+                  = link to: admin_translation_path(@conn, :index, to_translate: "true"), class: "nav-link" do
+                    i.fa.fa-language
+                    = gettext "To do"
+            li.nav-item
+              = link to: admin_global_config_path(@conn, :show), class: "nav-link" do
+                i.fa.fa-sliders
+                = gettext "Global configuration"
+
+      main.main
+        = render_existing @view_module, "breadcrumb.html", assigns
+        .container-fluid
+          .animated.fadeIn
+            = if get_flash(@conn, :info) do
+              p.alert.alert-info role="alert" = get_flash(@conn, :info)
+            = if get_flash(@conn, :error) do
+              p.alert.alert-danger role="alert" = get_flash(@conn, :error)
+            = render @view_module, @view_template, assigns
+    footer.app-footer
+      | Shopix Back-Office
+      | &nbsp; © 2019 Nicolas Blanco &nbsp;&nbsp;&nbsp;
+      = link "en", to: admin_home_path(@conn, :index, locale: "en")
+      | &nbsp; &nbsp;
+      = link "fr", to: admin_home_path(@conn, :index, locale: "fr")
+      span.float-right
+        = gettext "Powered by"
+        a href="http://coreui.io"  CoreUI
+    script src="#{static_path(@conn, "/js/vendor/admin.js")}"
+    script src="#{static_path(@conn, "/js/admin.js")}"
+    script src="https://ucarecdn.com/libs/widget/3.0.0/uploadcare.full.min.js" charset="utf-8"

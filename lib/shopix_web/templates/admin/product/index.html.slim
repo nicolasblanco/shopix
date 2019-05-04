@@ -1,0 +1,45 @@
+.row
+  .col-lg-12
+    .card
+      .card-header
+        = gettext("Products")
+        span.pull-right.small-margin-top
+          = link to: admin_product_path(@conn, :new), class: "btn btn-primary" do
+            i.fa.fa-magic
+            | &nbsp; #{gettext("New product")}
+
+      .card-block
+        = pagination_links @conn, @page, path: &admin_product_path/3
+
+        table.table.table-striped
+          thead
+            tr
+              th = gettext("Image")
+              th = gettext("SKU")
+              th = gettext("Price")
+              th = gettext("Name")
+              th = gettext("Slug")
+              th
+          tbody
+            = for product <- @products do
+              tr
+                td = img_tag thumb_url(product), width: 100
+                td = product.sku
+                td = product.price
+                td = t_field(product, :name, @global_config.default_locale)
+                td = t_field(product, :slug, @global_config.default_locale)
+                td.text-right
+                  .btn-group.btn-group-sm role="group"
+                    a href="#" target="_blank" class="btn btn-warning dropdown-toggle" data-toggle="dropdown"
+                      i.fa.fa-eye
+                      | &nbsp; #{gettext("See")}
+                    ul.dropdown-menu
+                      = for locale <- locales_filled_on(@conn, product, :slug) do
+                        li
+                          = link to: product_path(@conn, :show, locale, t_slug(product, locale)), target: "_blank" do
+                            = img_tag "/img/flags/#{locale}.png", style: "width: 2em;"
+                            = "#{gettext("See in")} #{locale}"
+                    = link gettext("Edit"), to: admin_product_path(@conn, :edit, product, options_reject_nil(page: @conn.params[:page])), class: "btn btn-primary"
+                    = link gettext("Delete"), to: admin_product_path(@conn, :delete, product), method: :delete, data: [confirm: gettext("Are you sure?")], class: "btn btn-danger"
+
+        = pagination_links @conn, @page, path: &admin_product_path/3

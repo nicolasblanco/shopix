@@ -1,0 +1,5 @@
+ol.breadcrumb
+  li.breadcrumb-item
+    = link gettext("Home"), to: admin_home_path(@conn, :index)
+  li.breadcrumb-item
+    = link "Pages", to: admin_page_path(@conn, :index)

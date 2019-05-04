@@ -1,0 +1,22 @@
+= form_for @changeset, @action, fn f ->
+  = if @conn.params["page"] do
+    input type="hidden" name="page" value=@conn.params["page"]
+  = if @changeset.action do
+    .alert.alert-danger
+      p = gettext "Oops, something went wrong! Please check the errors below."
+  
+  = input f, :key, gettext("Key")
+
+  translate-attributes-component
+
+  - translations = %{translations_in: gettext("Translations in")}
+
+  javascript:
+    window.config.attributesComponentConfig = {
+      attributes: [
+        { name: "name", display_name: "#{gettext("Name")}", type: "string", value: #{to_json(f.data.name_translations)} }
+      ],
+      name: "property" }
+    window.config.t = #{translations |> Poison.encode! |> raw}
+
+  = Bootform.submit gettext("Save")

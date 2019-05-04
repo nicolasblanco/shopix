@@ -1,0 +1,10 @@
+.row
+  .col-lg-12
+    .card
+      .card-header
+        = gettext "New page"
+      .card-block
+        = render "form.html", changeset: @changeset,
+                              action: admin_page_path(@conn, :create),
+                              current_locale: @global_config.default_locale,
+                              conn: @conn

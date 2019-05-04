@@ -1,0 +1,31 @@
+= form_for @changeset, @action, fn f ->
+  = if @conn.params["return_page"] do
+    input type="hidden" name="return_page" value=@conn.params["return_page"]
+  = if @changeset.action do
+    .alert.alert-danger
+      p = gettext "Oops, something went wrong! Please check the errors below."
+
+  = input f, :key, gettext("Key")
+
+  translate-attributes-component
+
+  - translations = %{translations_in: gettext("Translations in")}
+
+  javascript:
+    window.config.attributesComponentConfig = {
+      attributes:
+        [
+          { name: "name", display_name: "#{gettext("Name")}", type: "string", value: #{to_json(f.data.name_translations)} },
+          { name: "content", display_name: "#{gettext("Content")}", type: "text", rows: 30, value: #{to_json(f.data.content_translations)} }
+        ],
+      name: "page" }
+    window.config.t = #{translations |> Poison.encode! |> raw}
+
+  .form-group
+    label = gettext "Images"
+    | &nbsp;
+    .image-preview-multiple
+      = hidden_input f, :images_group_url, role: "uploadcare-uploader", data: ["images-only": "true", multiple: "true"]
+      div class="_list"
+
+  = Bootform.submit gettext("Save")
