@@ -6,8 +6,8 @@ This is a Work In Progress and right now it should not be used in production wit
 
 If you want to encourage me to work on this project, you can make donations, right now in crypto-currencies.
 
-[![Donate with Ethereum](https://en.cryptobadges.io/badge/small/0x0C24C23Bb3a6D2f151c76ea8e9B84721cb7D4dA5)](https://en.cryptobadges.io/donate/0x0C24C23Bb3a6D2f151c76ea8e9B84721cb7D4dA5)
-[![Donate with Bitcoin](https://en.cryptobadges.io/badge/small/1HpfsUzKyvgJ65nbZJgxfAhV7hWPBpH25d)](https://en.cryptobadges.io/donate/1HpfsUzKyvgJ65nbZJgxfAhV7hWPBpH25d)
+[![Donate with Ethereum](https://en.cryptobadges.io/badge/micro/0x0C24C23Bb3a6D2f151c76ea8e9B84721cb7D4dA5)](https://en.cryptobadges.io/donate/0x0C24C23Bb3a6D2f151c76ea8e9B84721cb7D4dA5)
+[![Donate with Bitcoin](https://en.cryptobadges.io/badge/micro/1HpfsUzKyvgJ65nbZJgxfAhV7hWPBpH25d)](https://en.cryptobadges.io/donate/1HpfsUzKyvgJ65nbZJgxfAhV7hWPBpH25d)
 
 # Features
 
