@@ -22,6 +22,15 @@ This is a Work In Progress and right now it should not be used in production wit
 ![Third screenshot](https://raw.githubusercontent.com/nicolasblanco/shopix/master/documents/screenshot3.png)
 ![Forth screenshot](https://raw.githubusercontent.com/nicolasblanco/shopix/master/documents/screenshot4.png)
 
+# What's missing?
+
+* Lots of polishing, testing, refactoring, etc.
+* Multiple/different VAT % (?)
+* Multiple/different shipping costs
+* Multiple payment gateways
+* Multiple images providers
+* Themes engine (Liquid?)
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
