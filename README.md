@@ -4,11 +4,23 @@ Shopix is a work in progress of an e-commerce platform written in Elixir and usi
 
 This is a Work In Progress and right now it should not be used in production without intensive testing.
 
+# Features
+
+* Clean Administration UI
+* Front-end theme using Bootstrap 4
+* Handles products with multiple images (through Uploadcare)
+* Unlimited groups and properties for products
+* Unlimited translations / locales
+* Braintree gateway
+* Static pages
+* VAT + Single Shopping cost
+
 # Screenshots
 
 ![First screenshot](https://raw.githubusercontent.com/nicolasblanco/shopix/master/documents/screenshot1.png)
 ![Second screenshot](https://raw.githubusercontent.com/nicolasblanco/shopix/master/documents/screenshot2.png)
 ![Third screenshot](https://raw.githubusercontent.com/nicolasblanco/shopix/master/documents/screenshot3.png)
+![Forth screenshot](https://raw.githubusercontent.com/nicolasblanco/shopix/master/documents/screenshot4.png)
 
 To start your Phoenix server:
 
@@ -30,4 +42,3 @@ To start your Phoenix server:
 I really welcome contributions.
 
 Please don't forget to write tests when doing pull requests.
-
