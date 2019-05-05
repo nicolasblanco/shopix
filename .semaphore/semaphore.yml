@@ -40,7 +40,7 @@ blocks:
           - cache restore mix-build-$SEMAPHORE_GIT_BRANCH-$(checksum mix.lock),mix-build-$SEMAPHORE_GIT_BRANCH,mix-build-master
 
           - mix deps.get
-          - mix do compile, dialyzer --plt
+          # - mix do compile, dialyzer --plt
           - MIX_ENV=test mix compile
 
           # Store deps after compilation, otherwise rebar3 deps (that is, most
