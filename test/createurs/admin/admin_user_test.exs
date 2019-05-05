@@ -25,7 +25,7 @@ defmodule Shopix.Admin.AdminUserTest do
   test "create_user/1 with valid data creates a user" do
     assert {:ok, %User{} = user} = Admin.create_user(@valid_attrs)
     assert user.email == "user@foo.bar"
-    assert (user.encrypted_password |> String.length) > 10
+    assert user.encrypted_password |> String.length() > 10
   end
 
   test "create_user/1 with invalid data returns error changeset" do
@@ -62,14 +62,18 @@ defmodule Shopix.Admin.AdminUserTest do
   test "find_and_confirm_password/1 with valid data checks validity of password and returns user" do
     user = insert(:user, %{email: "foo@bar.com"})
 
-    assert {:ok, user_returned} = Admin.find_and_confirm_password(%{"email" => "foo@bar.com", "password" => "test1234"})
+    assert {:ok, user_returned} =
+             Admin.find_and_confirm_password(%{"email" => "foo@bar.com", "password" => "test1234"})
+
     assert user.id == user_returned.id
   end
 
   test "find_and_confirm_password/1 with invalid data returns an error" do
     insert(:user, %{email: "foo@bar.com"})
 
-    assert {:error, :invalid_credentials} = Admin.find_and_confirm_password(%{"email" => "foo@bar.com", "password" => "foobar"})
+    assert {:error, :invalid_credentials} =
+             Admin.find_and_confirm_password(%{"email" => "foo@bar.com", "password" => "foobar"})
+
     assert {:error, :invalid_params} = Admin.find_and_confirm_password(nil)
   end
 end

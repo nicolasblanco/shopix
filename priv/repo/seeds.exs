@@ -13,7 +13,12 @@
 alias Shopix.Schema.{User, GlobalConfig}
 alias Shopix.{Repo, Admin}
 
-user = Admin.User.changeset(%User{}, %{email: System.get_env("ADMIN_EMAIL"), password: System.get_env("ADMIN_PASSWORD")})
+user =
+  Admin.User.changeset(%User{}, %{
+    email: System.get_env("ADMIN_EMAIL"),
+    password: System.get_env("ADMIN_PASSWORD")
+  })
+
 Repo.insert!(user)
 
 global_config = Admin.GlobalConfig.changeset(%GlobalConfig{}, %{})

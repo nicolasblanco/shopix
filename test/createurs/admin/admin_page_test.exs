@@ -4,18 +4,25 @@ defmodule Shopix.Admin.AdminPageTest do
   alias Shopix.Admin
   alias Shopix.Schema.Page
 
-  @valid_attrs %{key: "faq",
-                  name_translations: %{"fr" => "Foire aux questions",
-                                      "en" => "Frequently asked questions"},
-                  content_translations: %{"fr" => "Comment faire ci, faire ça...",
-                                          "en" => "How to do this and that..."}
-                }
-  @update_attrs %{key: "new_faq",
-                  name_translations: %{"fr" => "Foire aux nouvelles questions",
-                                      "en" => "Frequently asked new questions"},
-                  content_translations: %{"fr" => "Comment faire ci, faire ça, lalala...",
-                                          "en" => "How to do this and that and this again..."}
-                }
+  @valid_attrs %{
+    key: "faq",
+    name_translations: %{"fr" => "Foire aux questions", "en" => "Frequently asked questions"},
+    content_translations: %{
+      "fr" => "Comment faire ci, faire ça...",
+      "en" => "How to do this and that..."
+    }
+  }
+  @update_attrs %{
+    key: "new_faq",
+    name_translations: %{
+      "fr" => "Foire aux nouvelles questions",
+      "en" => "Frequently asked new questions"
+    },
+    content_translations: %{
+      "fr" => "Comment faire ci, faire ça, lalala...",
+      "en" => "How to do this and that and this again..."
+    }
+  }
   @invalid_attrs %{key: ""}
 
   test "list_pages/1 returns all pages paginated" do

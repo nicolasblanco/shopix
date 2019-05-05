@@ -8,13 +8,15 @@ defmodule ShopixWeb.Admin.GroupController do
   def index(conn, params) do
     page = Admin.list_groups(params)
 
-    render conn, "index.html", groups: page.entries,
-                               page: page
+    render(conn, "index.html",
+      groups: page.entries,
+      page: page
+    )
   end
 
   def new(conn, _params) do
     changeset = Admin.change_group(%Group{})
-    render conn, "new.html", changeset: changeset
+    render(conn, "new.html", changeset: changeset)
   end
 
   def create(conn, %{"group" => group_params}) do
@@ -23,8 +25,9 @@ defmodule ShopixWeb.Admin.GroupController do
         conn
         |> put_flash(:info, "Group created successfully.")
         |> redirect(to: admin_group_path(conn, :index))
+
       {:error, %Changeset{} = changeset} ->
-        render conn, "new.html", changeset: changeset
+        render(conn, "new.html", changeset: changeset)
     end
   end
 
@@ -32,8 +35,10 @@ defmodule ShopixWeb.Admin.GroupController do
     group = Admin.get_group!(id)
     changeset = Admin.change_group(group)
 
-    render conn, "edit.html", group: group,
-                              changeset: changeset
+    render(conn, "edit.html",
+      group: group,
+      changeset: changeset
+    )
   end
 
   def update(conn, %{"id" => id, "group" => group_params}) do
@@ -43,10 +48,15 @@ defmodule ShopixWeb.Admin.GroupController do
       {:ok, _} ->
         conn
         |> put_flash(:info, "Group updated successfully.")
-        |> redirect(to: admin_group_path(conn, :index, options_reject_nil(page: conn.params["page"])))
+        |> redirect(
+          to: admin_group_path(conn, :index, options_reject_nil(page: conn.params["page"]))
+        )
+
       {:error, %Changeset{} = changeset} ->
-        render conn, "edit.html", group: group,
-                                  changeset: changeset
+        render(conn, "edit.html",
+          group: group,
+          changeset: changeset
+        )
     end
   end
 

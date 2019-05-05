@@ -27,6 +27,7 @@ defmodule ShopixWeb.ConnCase do
 
       def guardian_login(user, token \\ :token, opts \\ []) do
         insert(:global_config)
+
         build_conn()
         |> bypass_through(ShopixWeb.Router, [:browser])
         |> get("/")
@@ -44,9 +45,11 @@ defmodule ShopixWeb.ConnCase do
 
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Shopix.Repo)
+
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(Shopix.Repo, {:shared, self()})
     end
+
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end

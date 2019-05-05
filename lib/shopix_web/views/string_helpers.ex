@@ -3,7 +3,7 @@ defmodule ShopixWeb.StringHelpers do
 
   def to_json(data) do
     data
-    |> Poison.encode!
+    |> Poison.encode!()
     |> raw
   end
 
@@ -13,14 +13,16 @@ defmodule ShopixWeb.StringHelpers do
   end
 
   def truncate(text, opts \\ []) do
-    max_length  = opts[:max_length] || 50
-    omission    = opts[:omission] || "..."
+    max_length = opts[:max_length] || 50
+    omission = opts[:omission] || "..."
 
     cond do
-      not String.valid?(text) -> 
+      not String.valid?(text) ->
         text
-      String.length(text) < max_length -> 
+
+      String.length(text) < max_length ->
         text
+
       true ->
         length_with_omission = max_length - String.length(omission)
 

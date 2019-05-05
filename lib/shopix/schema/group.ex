@@ -2,8 +2,10 @@ defmodule Shopix.Schema.Group do
   use Ecto.Schema
   alias Shopix.Schema.Product
 
-  @timestamps_opts [type: Timex.Ecto.DateTime,
-                    autogenerate: {Timex.Ecto.DateTime, :autogenerate, []}]
+  @timestamps_opts [
+    type: Timex.Ecto.DateTime,
+    autogenerate: {Timex.Ecto.DateTime, :autogenerate, []}
+  ]
 
   schema "groups" do
     field :key, :string

@@ -7,8 +7,10 @@ defmodule ShopixWeb.Admin.PageController do
   def index(conn, params) do
     page = Admin.list_pages(params)
 
-    render conn, "index.html", pages: page.entries,
-                               page: page
+    render(conn, "index.html",
+      pages: page.entries,
+      page: page
+    )
   end
 
   def new(conn, _params) do
@@ -22,6 +24,7 @@ defmodule ShopixWeb.Admin.PageController do
         conn
         |> put_flash(:info, "Page created successfully.")
         |> redirect(to: admin_page_path(conn, :index))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -40,7 +43,10 @@ defmodule ShopixWeb.Admin.PageController do
       {:ok, _} ->
         conn
         |> put_flash(:info, "Page updated successfully.")
-        |> redirect(to: admin_page_path(conn, :index, options_reject_nil(page: conn.params["return_page"])))
+        |> redirect(
+          to: admin_page_path(conn, :index, options_reject_nil(page: conn.params["return_page"]))
+        )
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", page: page, changeset: changeset)
     end

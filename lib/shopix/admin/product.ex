@@ -16,9 +16,11 @@ defmodule Shopix.Admin.Product do
   end
 
   def update_groups(changeset, %{"group_ids" => ""}), do: put_assoc(changeset, :groups, [])
+
   def update_groups(changeset, %{"group_ids" => group_ids}) do
     groups = Repo.all(from g in Group, where: g.id in ^group_ids)
     put_assoc(changeset, :groups, groups)
   end
+
   def update_groups(changeset, _), do: changeset
 end

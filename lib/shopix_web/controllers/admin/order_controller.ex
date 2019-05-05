@@ -5,13 +5,16 @@ defmodule ShopixWeb.Admin.OrderController do
 
   def index(conn, params) do
     page = Admin.list_orders(params)
-    render conn, "index.html", orders: page.entries,
-                               page: page
+
+    render(conn, "index.html",
+      orders: page.entries,
+      page: page
+    )
   end
 
   def show(conn, %{"id" => id}) do
     order = Admin.get_order!(id)
 
-    render conn, "show.html", order: order
+    render(conn, "show.html", order: order)
   end
 end

@@ -61,13 +61,13 @@ blocks:
         - cache restore mix-build-$SEMAPHORE_GIT_BRANCH-$(checksum mix.lock)
       # This block contains 3 parallel jobs:
       jobs:
-      - name: credo
-        commands:
-        - mix credo -a
+      # - name: credo
+      #   commands:
+      #   - mix credo -a
 
-      - name: dialyzer
-        commands:
-        - mix dialyzer --halt-exit-status --no-compile
+      # - name: dialyzer
+      #   commands:
+      #   - mix dialyzer --halt-exit-status --no-compile
 
       - name: formatter
         commands:

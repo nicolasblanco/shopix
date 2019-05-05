@@ -4,20 +4,24 @@ defmodule Shopix.Admin.AdminProductTest do
   alias Shopix.Admin
   alias Shopix.Schema.Product
 
-  @valid_attrs %{price: "42,00 €",
-                  sku: "FOO-BAR",
-                  name_translations: %{"fr" => "Magnifique produit",
-                                      "en" => "Great product"},
-                  description_translations: %{"fr" => "Super produit, achetez-le !",
-                                              "en" => "Wonderful product, buy it!"}
-                }
-  @update_attrs %{price: "50,00 €",
-                  sku: "FOO-BAR-2",
-                  name_translations: %{"fr" => "Magnifique super produit",
-                                        "en" => "Great and cool product"},
-                  description_translations: %{"fr" => "Super top produit, achetez-le !",
-                                              "en" => "Wonderful product, buy it for sure!"}
-                }
+  @valid_attrs %{
+    price: "42,00 €",
+    sku: "FOO-BAR",
+    name_translations: %{"fr" => "Magnifique produit", "en" => "Great product"},
+    description_translations: %{
+      "fr" => "Super produit, achetez-le !",
+      "en" => "Wonderful product, buy it!"
+    }
+  }
+  @update_attrs %{
+    price: "50,00 €",
+    sku: "FOO-BAR-2",
+    name_translations: %{"fr" => "Magnifique super produit", "en" => "Great and cool product"},
+    description_translations: %{
+      "fr" => "Super top produit, achetez-le !",
+      "en" => "Wonderful product, buy it for sure!"
+    }
+  }
   @invalid_attrs %{price: nil, sku: nil}
 
   test "list_products/1 returns all products" do

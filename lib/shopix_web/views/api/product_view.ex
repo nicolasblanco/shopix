@@ -10,7 +10,13 @@ defmodule ShopixWeb.Api.ProductView do
     }
   end
 
-  def render("show.json", %{product: product, related_products: related_products, locale: locale, previous_product: previous_product, next_product: next_product}) do
+  def render("show.json", %{
+        product: product,
+        related_products: related_products,
+        locale: locale,
+        previous_product: previous_product,
+        next_product: next_product
+      }) do
     %{
       product: product_json(product, locale),
       related_products: Enum.map(related_products, &related_product_json(&1, locale)),
@@ -34,6 +40,7 @@ defmodule ShopixWeb.Api.ProductView do
   end
 
   def related_product_json(nil, _), do: nil
+
   def related_product_json(product, locale) do
     %{
       id: product.id,

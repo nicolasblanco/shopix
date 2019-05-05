@@ -7,8 +7,10 @@ defmodule ShopixWeb.Admin.PropertyController do
   def index(conn, params) do
     page = Admin.list_properties(params)
 
-    render conn, "index.html", properties: page.entries,
-                               page: page
+    render(conn, "index.html",
+      properties: page.entries,
+      page: page
+    )
   end
 
   def new(conn, _params) do
@@ -22,6 +24,7 @@ defmodule ShopixWeb.Admin.PropertyController do
         conn
         |> put_flash(:info, "Property created successfully.")
         |> redirect(to: admin_property_path(conn, :index))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -40,7 +43,10 @@ defmodule ShopixWeb.Admin.PropertyController do
       {:ok, _} ->
         conn
         |> put_flash(:info, "Property updated successfully.")
-        |> redirect(to: admin_property_path(conn, :index, options_reject_nil(page: conn.params["page"])))
+        |> redirect(
+          to: admin_property_path(conn, :index, options_reject_nil(page: conn.params["page"]))
+        )
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", property: property, changeset: changeset)
     end

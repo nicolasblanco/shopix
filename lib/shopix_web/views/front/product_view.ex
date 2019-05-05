@@ -8,13 +8,14 @@ defmodule ShopixWeb.Front.ProductView do
   end
 
   def in_groups([], _), do: []
+
   def in_groups(enum, number_of_groups) do
     size = round(Enum.count(enum) / number_of_groups)
     Enum.chunk_every(enum, size, size, [])
   end
 
   def properties_prefixed_by(product_properties, prefix) do
-    Enum.filter(product_properties, fn(product_property) ->
+    Enum.filter(product_properties, fn product_property ->
       String.starts_with?(product_property.property.key, prefix)
     end)
   end

@@ -24,11 +24,14 @@ defmodule Shopix.Admin.User do
     Bcrypt.checkpw(password, encrypted_password)
   end
 
-  defp put_encrypted_password(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
+  defp put_encrypted_password(
+         %Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset
+       ) do
     changeset
     |> put_change(:encrypted_password, encrypt_password(password))
     |> put_change(:password, nil)
   end
+
   defp put_encrypted_password(%Ecto.Changeset{} = changeset), do: changeset
 
   defp encrypt_password(password) do

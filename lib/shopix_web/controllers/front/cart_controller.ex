@@ -2,16 +2,21 @@ defmodule ShopixWeb.Front.CartController do
   use ShopixWeb, :controller
   alias Shopix.Front
 
-  plug ShopixWeb.Plug.Translations
+  plug(ShopixWeb.Plug.Translations)
 
   def show(conn, _params) do
-    render conn, "show.html", order: conn.assigns.current_order
+    render(conn, "show.html", order: conn.assigns.current_order)
   end
 
   def add(conn, %{"product_id" => product_id}) do
     product = Front.get_product!(product_id)
 
-    order = Front.create_or_add_order_with_product!(conn.assigns.current_order, product, conn.assigns.global_config)
+    order =
+      Front.create_or_add_order_with_product!(
+        conn.assigns.current_order,
+        product,
+        conn.assigns.global_config
+      )
 
     conn
     |> put_session(:order_id, order.id)

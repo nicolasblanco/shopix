@@ -1,7 +1,10 @@
 defmodule Shopix.Schema.LineItem do
   use Ecto.Schema
-  @timestamps_opts [type: Timex.Ecto.DateTime,
-                    autogenerate: {Timex.Ecto.DateTime, :autogenerate, []}]
+
+  @timestamps_opts [
+    type: Timex.Ecto.DateTime,
+    autogenerate: {Timex.Ecto.DateTime, :autogenerate, []}
+  ]
 
   import Ecto.Changeset
 
@@ -30,9 +33,12 @@ defmodule Shopix.Schema.LineItem do
   end
 
   def compute_properties(%LineItem{} = line_item) do
-    %{line_item | total_price: total_price(line_item),
-                  product_price: product_price(line_item),
-                  product_sku: product_sku(line_item)}
+    %{
+      line_item
+      | total_price: total_price(line_item),
+        product_price: product_price(line_item),
+        product_sku: product_sku(line_item)
+    }
   end
 
   def increase_quantity(line_item) do

@@ -16,7 +16,10 @@ defmodule Shopix.Factory do
       price: 1000,
       sku: sequence(:sku, &"sku-#{&1}"),
       name_translations: %{"en" => "My great product", "fr" => "Mon super produit"},
-      description_translations: %{"en" => "Cool description of my great product", "fr" => "Ceci est un super produit"},
+      description_translations: %{
+        "en" => "Cool description of my great product",
+        "fr" => "Ceci est un super produit"
+      },
       slug_translations: %{"en" => "my-great-product", "fr" => "mon-super-produit"}
     }
   end
@@ -65,7 +68,10 @@ defmodule Shopix.Factory do
   def page_factory do
     %Schema.Page{
       key: sequence(:page_key, &"about-#{&1}"),
-      content_translations: %{"fr" => "A propos de nous... Nous sommes les meilleurs ;)", "en" => "About us... We are the best ;)"},
+      content_translations: %{
+        "fr" => "A propos de nous... Nous sommes les meilleurs ;)",
+        "en" => "About us... We are the best ;)"
+      },
       name_translations: %{"fr" => "A propos", "en" => "About"},
       slug_translations: %{"fr" => "a-propos", "en" => "about"}
     }

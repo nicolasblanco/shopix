@@ -34,5 +34,4 @@ end
 
 config :bcrypt_elixir, :log_rounds, 4
 
-config :shopix, Shopix.Mailer,
-  adapter: Bamboo.TestAdapter
+config :shopix, Shopix.Mailer, adapter: Bamboo.TestAdapter

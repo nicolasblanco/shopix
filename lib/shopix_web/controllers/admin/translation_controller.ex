@@ -7,8 +7,10 @@ defmodule ShopixWeb.Admin.TranslationController do
   def index(conn, params) do
     page = Admin.list_translations(params)
 
-    render conn, "index.html", translations: page.entries,
-                               page: page
+    render(conn, "index.html",
+      translations: page.entries,
+      page: page
+    )
   end
 
   def new(conn, _params) do
@@ -22,6 +24,7 @@ defmodule ShopixWeb.Admin.TranslationController do
         conn
         |> put_flash(:info, "Translation created successfully.")
         |> redirect(to: admin_translation_path(conn, :index))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -30,7 +33,7 @@ defmodule ShopixWeb.Admin.TranslationController do
   def edit(conn, %{"id" => id}) do
     translation = Admin.get_translation!(id)
     changeset = Admin.change_translation(translation)
-    render conn, "edit.html", translation: translation, changeset: changeset
+    render(conn, "edit.html", translation: translation, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "translation" => translation_params}) do
@@ -40,7 +43,18 @@ defmodule ShopixWeb.Admin.TranslationController do
       {:ok, _} ->
         conn
         |> put_flash(:info, "Translation updated successfully.")
-        |> redirect(to: admin_translation_path(conn, :index, options_reject_nil(to_translate: conn.params["to_translate"], page: conn.params["page"])))
+        |> redirect(
+          to:
+            admin_translation_path(
+              conn,
+              :index,
+              options_reject_nil(
+                to_translate: conn.params["to_translate"],
+                page: conn.params["page"]
+              )
+            )
+        )
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", translation: translation, changeset: changeset)
     end

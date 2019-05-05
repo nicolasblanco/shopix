@@ -19,12 +19,16 @@ defmodule ShopixWeb.Plug.Translations do
   end
 
   defp controller_key(conn) do
-    controller_keys = conn
-                      |> Phoenix.Controller.controller_module()
-                      |> to_string |> String.split(".") |> Enum.slice(-2..-1)
+    controller_keys =
+      conn
+      |> Phoenix.Controller.controller_module()
+      |> to_string
+      |> String.split(".")
+      |> Enum.slice(-2..-1)
+
     controller_prefix = controller_keys |> Enum.at(0)
     controller_suffix = controller_keys |> Enum.at(1) |> String.replace("Controller", "")
 
-    "#{controller_prefix}.#{controller_suffix}" |> String.downcase
+    "#{controller_prefix}.#{controller_suffix}" |> String.downcase()
   end
 end

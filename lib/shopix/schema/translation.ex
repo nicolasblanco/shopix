@@ -1,7 +1,10 @@
 defmodule Shopix.Schema.Translation do
   use Ecto.Schema
-  @timestamps_opts [type: Timex.Ecto.DateTime,
-                    autogenerate: {Timex.Ecto.DateTime, :autogenerate, []}]
+
+  @timestamps_opts [
+    type: Timex.Ecto.DateTime,
+    autogenerate: {Timex.Ecto.DateTime, :autogenerate, []}
+  ]
 
   use Shopix.TranslationFields, translated_fields: ~w(value)
 

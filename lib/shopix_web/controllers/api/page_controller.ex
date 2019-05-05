@@ -6,6 +6,6 @@ defmodule ShopixWeb.Api.PageController do
     locale = conn.assigns.current_locale
     page = Front.get_page_by_slug!(id, locale)
 
-    render conn, "show.json", page: page, locale: locale
+    render(conn, "show.json", page: page, locale: locale)
   end
 end

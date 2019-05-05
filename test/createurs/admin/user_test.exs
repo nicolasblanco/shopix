@@ -18,8 +18,12 @@ defmodule Shopix.Admin.UserTest do
     end
 
     test "sets the encrypted password" do
-      changeset = Admin.User.registration_changeset(%User{}, %{email: "nicolas@nicolasblanco.fr",
-                                                               password: "test1234"})
+      changeset =
+        Admin.User.registration_changeset(%User{}, %{
+          email: "nicolas@nicolasblanco.fr",
+          password: "test1234"
+        })
+
       assert changeset.valid? == true
       assert changeset.changes |> Map.has_key?(:encrypted_password) == true
     end
@@ -39,14 +43,18 @@ defmodule Shopix.Admin.UserTest do
     end
 
     test "does not change the encrypted password if there is no change to it" do
-      changeset = Admin.User.changeset(%User{}, %{email: "nicolas@nicolasblanco.fr", password: ""})
+      changeset =
+        Admin.User.changeset(%User{}, %{email: "nicolas@nicolasblanco.fr", password: ""})
+
       assert changeset.valid? == true
       assert changeset.changes |> Map.has_key?(:email) == true
       assert changeset.changes |> Map.has_key?(:encrypted_password) == false
     end
 
     test "changes the encrypted password if there a change to it" do
-      changeset = Admin.User.changeset(%User{}, %{email: "nicolas@nicolasblanco.fr", password: "test1234"})
+      changeset =
+        Admin.User.changeset(%User{}, %{email: "nicolas@nicolasblanco.fr", password: "test1234"})
+
       assert changeset.valid? == true
       assert changeset.changes |> Map.has_key?(:email) == true
       assert changeset.changes |> Map.has_key?(:encrypted_password) == true

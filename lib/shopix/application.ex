@@ -13,7 +13,7 @@ defmodule Shopix.Application do
       # Start the Ecto repository
       supervisor(Shopix.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(ShopixWeb.Endpoint, []),
+      supervisor(ShopixWeb.Endpoint, [])
       # Start your own worker by calling: Shopix.Worker.start_link(arg1, arg2, arg3)
       # worker(Shopix.Worker, [arg1, arg2, arg3]),
     ]

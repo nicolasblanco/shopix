@@ -1,11 +1,11 @@
 defmodule ShopixWeb.Admin.SessionController do
   use ShopixWeb, :controller
-  plug :put_layout, "basic.html"
+  plug(:put_layout, "basic.html")
 
   alias Shopix.Admin
 
   def new(conn, _params) do
-    render conn, "new.html"
+    render(conn, "new.html")
   end
 
   def create(conn, %{"credentials" => credentials_params}) do
@@ -15,14 +15,15 @@ defmodule ShopixWeb.Admin.SessionController do
         |> Guardian.Plug.sign_in(user)
         |> put_flash(:info, "Logged in successfully.")
         |> redirect(to: "/admin")
+
       {:error, _} ->
-        render conn, "new.html"
+        render(conn, "new.html")
     end
   end
 
   def delete(conn, _params) do
     conn
-    |> Guardian.Plug.sign_out
+    |> Guardian.Plug.sign_out()
     |> put_flash(:info, "Logged out successfully.")
     |> redirect(to: "/")
   end

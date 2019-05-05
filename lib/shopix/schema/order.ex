@@ -1,7 +1,10 @@
 defmodule Shopix.Schema.Order do
   use Ecto.Schema
-  @timestamps_opts [type: Timex.Ecto.DateTime,
-                    autogenerate: {Timex.Ecto.DateTime, :autogenerate, []}]
+
+  @timestamps_opts [
+    type: Timex.Ecto.DateTime,
+    autogenerate: {Timex.Ecto.DateTime, :autogenerate, []}
+  ]
 
   alias Shopix.Schema.{Order, LineItem}
 
@@ -44,22 +47,32 @@ defmodule Shopix.Schema.Order do
   end
 
   def compute_totals(%Order{} = order, config) do
-    %{order | total_quantity: total_quantity(order),
-              price_items: price_items(order),
-              total_price: total_price(order, config)}
+    %{
+      order
+      | total_quantity: total_quantity(order),
+        price_items: price_items(order),
+        total_price: total_price(order, config)
+    }
   end
 
-  def shipping_cost_amount(%Order{shipping_cost_amount: nil} = order, shipping_cost_default_amount) do
+  def shipping_cost_amount(
+        %Order{shipping_cost_amount: nil} = order,
+        shipping_cost_default_amount
+      ) do
     Shopix.ShippingCostCalculator.shipping_cost_for(order, shipping_cost_default_amount)
   end
-  def shipping_cost_amount(%Order{shipping_cost_amount: shipping_cost_amount}, _), do: shipping_cost_amount
+
+  def shipping_cost_amount(%Order{shipping_cost_amount: shipping_cost_amount}, _),
+    do: shipping_cost_amount
 
   def total_quantity(%Order{} = order) do
     Enum.reduce(order.line_items, 0, fn line_item, acc -> acc + line_item.quantity end)
   end
 
   def price_items(%Order{} = order) do
-    Enum.reduce(order.line_items, Money.new(0), fn line_item, acc -> Money.add(acc, line_item.total_price) end)
+    Enum.reduce(order.line_items, Money.new(0), fn line_item, acc ->
+      Money.add(acc, line_item.total_price)
+    end)
   end
 
   def total_price(%Order{} = order, config) do

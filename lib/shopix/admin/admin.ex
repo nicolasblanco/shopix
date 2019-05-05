@@ -8,12 +8,13 @@ defmodule Shopix.Admin do
 
   def list_products(params \\ %{}) do
     Product
-    |> order_by([desc: :inserted_at])
+    |> order_by(desc: :inserted_at)
     |> filter_by_group(params["group_key"])
     |> Repo.paginate(params)
   end
 
   def filter_by_group(query, nil), do: query
+
   def filter_by_group(query, group_key) do
     from q in query, join: g in assoc(q, :groups), where: g.key == ^group_key
   end
@@ -47,7 +48,7 @@ defmodule Shopix.Admin do
 
   def list_groups(params \\ %{}) do
     Group
-    |> order_by([desc: :inserted_at])
+    |> order_by(desc: :inserted_at)
     |> Repo.paginate(params)
   end
 
@@ -79,7 +80,7 @@ defmodule Shopix.Admin do
 
   def list_users(params \\ %{}) do
     User
-    |> order_by([desc: :inserted_at])
+    |> order_by(desc: :inserted_at)
     |> Repo.paginate(params)
   end
 
@@ -106,7 +107,7 @@ defmodule Shopix.Admin do
   end
 
   def find_and_confirm_password(%{"email" => email, "password" => password})
-    when is_binary(email) and is_binary(password) do
+      when is_binary(email) and is_binary(password) do
     user = Repo.get_by(User, email: email)
 
     if user && Admin.User.valid_password?(user, password) do
@@ -115,16 +116,18 @@ defmodule Shopix.Admin do
       {:error, :invalid_credentials}
     end
   end
+
   def find_and_confirm_password(_), do: {:error, :invalid_params}
 
   def list_properties(params) do
     Property
-    |> order_by([desc: :inserted_at])
+    |> order_by(desc: :inserted_at)
     |> Repo.paginate(params)
   end
+
   def list_properties() do
     Property
-    |> order_by([desc: :inserted_at])
+    |> order_by(desc: :inserted_at)
     |> Repo.all()
   end
 
@@ -155,29 +158,37 @@ defmodule Shopix.Admin do
 
   def get_order!(id) do
     Order
-    |> preload([line_items: :product])
+    |> preload(line_items: :product)
     |> Repo.get!(id)
     |> Order.compute_properties()
   end
 
   def list_orders(params \\ %{}) do
-    %{entries: orders} = page = Order
-                                |> where([o], not is_nil o.completed_at)
-                                |> order_by([desc: :completed_at])
-                                |> Repo.paginate(params)
+    %{entries: orders} =
+      page =
+      Order
+      |> where([o], not is_nil(o.completed_at))
+      |> order_by(desc: :completed_at)
+      |> Repo.paginate(params)
 
-    %{page | entries: orders |> Repo.preload(line_items: :product) |> Enum.map(&Order.compute_properties(&1))}
+    %{
+      page
+      | entries:
+          orders |> Repo.preload(line_items: :product) |> Enum.map(&Order.compute_properties(&1))
+    }
   end
 
   def list_translations(params \\ %{})
+
   def list_translations(%{"to_translate" => "true"} = params) do
-    from(t in Translation, where: t.value_translations == ^(%{}) or (is_nil(t.value_translations)))
-    |> order_by([desc: :inserted_at])
+    from(t in Translation, where: t.value_translations == ^%{} or is_nil(t.value_translations))
+    |> order_by(desc: :inserted_at)
     |> Repo.paginate(params)
   end
+
   def list_translations(params) do
     Translation
-    |> order_by([desc: :inserted_at])
+    |> order_by(desc: :inserted_at)
     |> Repo.paginate(params)
   end
 
@@ -205,7 +216,7 @@ defmodule Shopix.Admin do
 
   def list_pages(params \\ %{}) do
     Page
-    |> order_by([desc: :inserted_at])
+    |> order_by(desc: :inserted_at)
     |> Repo.paginate(params)
   end
 

@@ -15,12 +15,14 @@ use Mix.Config
 # which you typically run after static files are built.
 config :shopix, ShopixWeb.Endpoint,
   load_from_system_env: true,
-  #url: [host: "shopix-docker.divein.blue", port: {:system, "PORT"}],
+  # url: [host: "shopix-docker.divein.blue", port: {:system, "PORT"}],
   url: [scheme: "https", host: {:system, "URL_HOST"}, port: 443],
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
   cache_static_manifest: "priv/static/cache_manifest.json",
-  secret_key_base: {:system, "SECRET_KEY_BASE"}#,
-  #server: true
+  # ,
+  secret_key_base: {:system, "SECRET_KEY_BASE"}
+
+# server: true
 
 # Do not print debug messages in production
 config :logger, level: :info
@@ -41,8 +43,7 @@ config :shopix,
   shipping_cost_amount: {:system, "SHIPPING_COST_AMOUNT"},
   uploadcare_public_key: {:system, "UPLOADCARE_PUBLIC_KEY"}
 
-config :guardian, Guardian,
-  secret_key: {:system, "GUARDIAN_SECRET_KEY"}
+config :guardian, Guardian, secret_key: {:system, "GUARDIAN_SECRET_KEY"}
 
 # ## SSL Support
 #

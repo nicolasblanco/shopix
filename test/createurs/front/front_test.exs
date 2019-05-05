@@ -22,7 +22,7 @@ defmodule Shopix.FrontTest do
       product = insert(:product)
       insert(:product)
 
-      assert Front.first_product == product
+      assert Front.first_product() == product
     end
 
     test "previous_product/1 returns the product before the given product" do
@@ -79,7 +79,12 @@ defmodule Shopix.FrontTest do
     test "order_validate_payment/1 updates the given order after payment" do
       order = insert(:order, %{completed_at: nil, shipping_cost_amount: nil})
 
-      assert {:ok, order} = Front.order_validate_payment(order, %{vat_percentage: Decimal.new(20), shipping_cost_default_amount: 10})
+      assert {:ok, order} =
+               Front.order_validate_payment(order, %{
+                 vat_percentage: Decimal.new(20),
+                 shipping_cost_default_amount: 10
+               })
+
       assert order.completed_at != nil
       assert order.shipping_cost_amount != nil
     end
@@ -87,7 +92,9 @@ defmodule Shopix.FrontTest do
     test "order_validate_address/1 updates the given order after address step when data is valid" do
       order = insert(:order)
 
-      assert {:ok, order} = Front.order_validate_address(order, %{first_name: "Foo", last_name: "Bar"})
+      assert {:ok, order} =
+               Front.order_validate_address(order, %{first_name: "Foo", last_name: "Bar"})
+
       assert order.first_name == "Foo"
       assert order.last_name == "Bar"
     end
@@ -95,7 +102,9 @@ defmodule Shopix.FrontTest do
     test "order_validate_address/1 updates the given order after address step when data is invalid" do
       order = insert(:order)
 
-      assert {:error, %Ecto.Changeset{}} = Front.order_validate_address(order, %{first_name: "", last_name: ""})
+      assert {:error, %Ecto.Changeset{}} =
+               Front.order_validate_address(order, %{first_name: "", last_name: ""})
+
       assert order.first_name == "Nicolas"
       assert order.last_name == "Blanco"
     end
@@ -106,17 +115,19 @@ defmodule Shopix.FrontTest do
 
       Front.create_or_add_order_with_product!(order, product, %{shipping_cost_default_amount: 10})
       order = Front.get_order(order.id, %{shipping_cost_default_amount: 10})
-      assert (order.line_items |> Enum.count) == 2
-      assert ((order.line_items |> Enum.at(1)).quantity) == 1
+      assert order.line_items |> Enum.count() == 2
+      assert (order.line_items |> Enum.at(1)).quantity == 1
     end
 
     test "create_or_add_order_with_product!/2 with no order creates an order and a line_item" do
       product = insert(:product)
 
-      order = Front.create_or_add_order_with_product!(nil, product, %{shipping_cost_default_amount: 10})
+      order =
+        Front.create_or_add_order_with_product!(nil, product, %{shipping_cost_default_amount: 10})
+
       order = Front.get_order(order.id, %{shipping_cost_default_amount: 10})
-      assert (order.line_items |> Enum.count) == 1
-      assert ((order.line_items |> Enum.at(0)).quantity) == 1
+      assert order.line_items |> Enum.count() == 1
+      assert (order.line_items |> Enum.at(0)).quantity == 1
     end
 
     test "add_product_to_order!/2 updates the quantity of a line_item if product is already in order" do
@@ -125,8 +136,8 @@ defmodule Shopix.FrontTest do
 
       order = Front.add_product_to_order!(order, product)
       order = Front.get_order(order.id, %{shipping_cost_default_amount: 10})
-      assert (order.line_items |> Enum.count) == 1
-      assert ((order.line_items |> Enum.at(0)).quantity) == 4
+      assert order.line_items |> Enum.count() == 1
+      assert (order.line_items |> Enum.at(0)).quantity == 4
     end
 
     test "add_product_to_order!/2 creates a line_item with a new product" do
@@ -135,8 +146,8 @@ defmodule Shopix.FrontTest do
 
       order = Front.add_product_to_order!(order, product)
       order = Front.get_order(order.id, %{shipping_cost_default_amount: 10})
-      assert (order.line_items |> Enum.count) == 1
-      assert ((order.line_items |> Enum.at(0)).quantity) == 1
+      assert order.line_items |> Enum.count() == 1
+      assert (order.line_items |> Enum.at(0)).quantity == 1
     end
   end
 
@@ -175,7 +186,7 @@ defmodule Shopix.FrontTest do
 
       Front.order_line_item_delete!(order, line_item.id)
       order = Front.get_order(order.id, %{shipping_cost_default_amount: 10})
-      assert order.line_items |> Enum.empty? == true
+      assert order.line_items |> Enum.empty?() == true
     end
   end
 end
