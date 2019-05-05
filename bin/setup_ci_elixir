@@ -1,0 +1,28 @@
+#! /usr/bin/env bash
+
+set -e
+
+# TODO
+# ERLANG_VSN=21.2
+# ERLANG_CACHE_KEY=kerl-erlang-$ERLANG_VERSION
+
+ELIXIR_VSN=1.8.1
+ELIXIR_CACHE_KEY=kiex-elixir-$ELIXIR_VSN
+
+if cache has_key "$ELIXIR_CACHE_KEY"; then
+  cache restore $ELIXIR_CACHE_KEY
+  # TODO home/semaphore? try to cache and restore /home not home
+  mv home/semaphore/.kiex/elixirs/elixir-$ELIXIR_VSN $HOME/.kiex/elixirs
+  mv home/semaphore/.kiex/elixirs/elixir-$ELIXIR_VSN.env $HOME/.kiex/elixirs
+else
+  kiex install $ELIXIR_VSN
+  cache store $ELIXIR_CACHE_KEY $HOME/.kiex/elixirs
+fi
+
+kiex default $ELIXIR_VSN
+source $HOME/.kiex/elixirs/elixir-$ELIXIR_VSN.env
+
+elixir --version
+
+mix local.hex --force
+mix local.rebar --force
