@@ -1,0 +1,97 @@
+# Use the latest stable version of Semaphore 2.0 YML syntax:
+version: v1.0
+
+# Name of your pipeline. In this example we connect two pipelines with
+# a promotion, so it helps to differentiate what's the job of each.
+name: Elixir Phoenix example CI pipeline on Semaphore
+
+# An agent defines the environment in which your code runs.
+# It is a combination of one of available machine types and operating
+# system images. See:
+# https://docs.semaphoreci.com/article/20-machine-types
+# https://docs.semaphoreci.com/article/32-ubuntu-1804-image
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+
+# Blocks make up the structure of a pipeline and are executed sequentially.
+# Each block has a task that defines one or many parallel jobs. Jobs define
+# the commands to execute.
+# See https://docs.semaphoreci.com/article/62-concepts
+blocks:
+  - name: Set up
+    task:
+      jobs:
+      - name: compile and build plts
+        commands:
+          # Checkout code from Git repository. This step is mandatory if the
+          # job is to work with your code.
+          - checkout
+
+          - bin/setup_ci_elixir
+          - sem-version elixir 1.8.1
+
+          # Restore dependencies from cache, command won't fail if it's
+          # missing. More on caching:
+          # - https://docs.semaphoreci.com/article/54-toolbox-reference#cache
+          # - https://docs.semaphoreci.com/article/87-language-elixir
+          - cache restore mix-deps-$SEMAPHORE_GIT_BRANCH-$(checksum mix.lock),mix-deps-$SEMAPHORE_GIT_BRANCH,mix-deps-master
+          - cache restore mix-build-$SEMAPHORE_GIT_BRANCH-$(checksum mix.lock),mix-build-$SEMAPHORE_GIT_BRANCH,mix-build-master
+
+          - mix deps.get
+          - mix do compile, dialyzer --plt
+          - MIX_ENV=test mix compile
+
+          # Store deps after compilation, otherwise rebar3 deps (that is, most
+          # Erlang deps) won't be cached:
+          - cache store mix-deps-$SEMAPHORE_GIT_BRANCH-$(checksum mix.lock) deps
+          - cache store mix-build-$SEMAPHORE_GIT_BRANCH-$(checksum mix.lock) _build
+
+  - name: Analyze code
+    task:
+      # Commands in prologue run at the beginning of each parallel job.
+      # https://docs.semaphoreci.com/article/50-pipeline-yaml
+      prologue:
+        commands:
+        - checkout
+        - bin/setup_ci_elixir
+        - sem-version elixir 1.8.1
+        - cache restore mix-deps-$SEMAPHORE_GIT_BRANCH-$(checksum mix.lock)
+        - cache restore mix-build-$SEMAPHORE_GIT_BRANCH-$(checksum mix.lock)
+      # This block contains 3 parallel jobs:
+      jobs:
+      - name: credo
+        commands:
+        - mix credo -a
+
+      - name: dialyzer
+        commands:
+        - mix dialyzer --halt-exit-status --no-compile
+
+      - name: formatter
+        commands:
+        - mix format --check-formatted
+
+  - name: Run tests
+    task:
+      prologue:
+        commands:
+        - checkout
+        - bin/setup_ci_elixir
+        - sem-version elixir 1.8.1
+        - cache restore mix-deps-$SEMAPHORE_GIT_BRANCH-$(checksum mix.lock)
+        - cache restore mix-build-$SEMAPHORE_GIT_BRANCH-$(checksum mix.lock)
+
+      jobs:
+      - name: ex_unit
+        # Define an environment variable
+        # See https://docs.semaphoreci.com/article/66-environment-variables-and-secrets
+        env_vars:
+        - name: DATABASE_URL
+          value: "ecto://postgres:@0.0.0.0:5432/sema_test"
+        commands:
+        # Start Postgres database service
+        # https://docs.semaphoreci.com/article/54-toolbox-reference#sem-service
+        - sem-service start postgres
+        - mix test
