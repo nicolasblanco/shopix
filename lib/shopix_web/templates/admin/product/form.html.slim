@@ -29,7 +29,7 @@
 
     window.config.defaultProductProperties = #{many_association_to_json(@product_properties, [:value_translations, :id, :property_id]) |> raw}
     window.config.defaultProperties = #{many_to_json(@properties, [:key, :id]) |> raw}
-    window.config.t = #{translations |> Poison.encode! |> raw}
+    window.config.t = #{translations |> Jason.encode! |> raw}
 
   .form-group
     label = gettext("Images")

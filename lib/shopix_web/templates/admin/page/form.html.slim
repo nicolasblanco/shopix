@@ -19,7 +19,7 @@
           { name: "content", display_name: "#{gettext("Content")}", type: "text", rows: 30, value: #{to_json(f.data.content_translations)} }
         ],
       name: "page" }
-    window.config.t = #{translations |> Poison.encode! |> raw}
+    window.config.t = #{translations |> Jason.encode! |> raw}
 
   .form-group
     label = gettext "Images"

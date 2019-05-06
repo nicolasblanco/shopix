@@ -1,7 +1,8 @@
 defmodule ShopixWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :shopix
 
-  socket "/socket", ShopixWeb.UserSocket
+  socket "/socket", ShopixWeb.UserSocket,
+    websocket: true # or list of options
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -27,7 +28,7 @@ defmodule ShopixWeb.Endpoint do
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],
-    json_decoder: Poison
+    json_decoder: Jason
 
   plug Plug.MethodOverride
   plug Plug.Head

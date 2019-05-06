@@ -30,9 +30,10 @@ defmodule Shopix.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.3.0"},
+      {:phoenix, "~> 1.4.0"},
       {:phoenix_pubsub, "~> 1.0"},
-      {:phoenix_ecto, "~> 3.2"},
+      {:ecto_sql, "~> 3.0"},
+      {:phoenix_ecto, "~> 4.0"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.6"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
@@ -52,9 +53,8 @@ defmodule Shopix.Mixfile do
       {:jason, "~> 1.1"},
       {:sentry, "~> 7.0"},
       {:timex, "~> 3.1"},
-      {:timex_ecto, "~> 3.1"},
-      {:bootform, github: "Grafikart/elixir-bootform"},
-      {:scrivener_ecto, "~> 1.0"},
+      {:bootform, github: "nicolasblanco/elixir-bootform"},
+      {:scrivener_ecto, "~> 2.2"},
       {:scrivener_html, "~> 1.7"},
       {:deferred_config, "~> 0.1.0"},
       {:liquid, "~> 0.9.1"},

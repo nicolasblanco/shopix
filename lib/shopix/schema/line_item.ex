@@ -1,11 +1,6 @@
 defmodule Shopix.Schema.LineItem do
   use Ecto.Schema
 
-  @timestamps_opts [
-    type: Timex.Ecto.DateTime,
-    autogenerate: {Timex.Ecto.DateTime, :autogenerate, []}
-  ]
-
   import Ecto.Changeset
 
   alias Shopix.Schema.{LineItem, Order, Product}

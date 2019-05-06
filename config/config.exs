@@ -28,9 +28,13 @@ config :phoenix, :template_engines,
   slim: PhoenixSlime.Engine,
   slime: PhoenixSlime.Engine
 
+config :phoenix, :json_library, Jason
+
 config :shopix, Shopix.Guardian,
   issuer: "shopix",
   secret_key: "2PsWyRBou2HTTI6iPoLm0YOuwlA0W8iEBn8/Uo1rvIuT7de9OGp9VE7a0YLra8Kw"
+
+config :bootform, gettext_backend: ShopixWeb.Gettext
 
 config :money,
   default_currency: :EUR,

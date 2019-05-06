@@ -1,11 +1,6 @@
 defmodule Shopix.Schema.Order do
   use Ecto.Schema
 
-  @timestamps_opts [
-    type: Timex.Ecto.DateTime,
-    autogenerate: {Timex.Ecto.DateTime, :autogenerate, []}
-  ]
-
   alias Shopix.Schema.{Order, LineItem}
 
   schema "orders" do
@@ -26,7 +21,7 @@ defmodule Shopix.Schema.Order do
 
     field :vat_percentage, :decimal
 
-    field :completed_at, Timex.Ecto.DateTime
+    field :completed_at, :naive_datetime
 
     field :shipping_cost_amount, Money.Ecto.Type
     field :total_quantity, :integer, virtual: true

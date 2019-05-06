@@ -9,12 +9,12 @@ defmodule ShopixWeb.Admin.ProductView do
         []
       end
 
-    Poison.encode!(map)
+    Jason.encode!(map)
   end
 
   def many_to_json(data, fields_to_take) do
     map = data |> Enum.map(&Map.take(&1, fields_to_take))
 
-    Poison.encode!(map)
+    Jason.encode!(map)
   end
 end

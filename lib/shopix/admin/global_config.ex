@@ -27,7 +27,7 @@ defmodule Shopix.Admin.GlobalConfig do
   end
 
   def put_payment_gateway(changeset, %{"payment_gateway" => payment_gateway_params}) do
-    put_change(changeset, :payment_gateway, Poison.decode!(payment_gateway_params))
+    put_change(changeset, :payment_gateway, Jason.decode!(payment_gateway_params))
   end
 
   def put_payment_gateway(changeset, _), do: changeset

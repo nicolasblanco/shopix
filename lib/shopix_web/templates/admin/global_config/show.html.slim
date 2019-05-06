@@ -21,6 +21,6 @@
           = input f, :shipping_cost_default_amount, gettext("Shipping cost default amount")
           = input f, :upload_provider_public_key, gettext("Uploadcare public key")
 
-          = input f, :payment_gateway, gettext("Payment Gateway"), type: :textarea, value: f.data.payment_gateway |> Poison.encode!
+          = input f, :payment_gateway, gettext("Payment Gateway"), type: :textarea, value: f.data.payment_gateway |> Jason.encode!
 
           = Bootform.submit gettext("Save")

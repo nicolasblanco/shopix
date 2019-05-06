@@ -17,6 +17,6 @@
     window.config.attributesComponentConfig = {
       attributes: [{ name: "value", display_name: "#{gettext("Value")}", type: "text", rows: 10, value: #{to_json(f.data.value_translations)} }],
       name: "translation" }
-    window.config.t = #{translations |> Poison.encode! |> raw}
+    window.config.t = #{translations |> Jason.encode! |> raw}
 
   = Bootform.submit gettext("Save")

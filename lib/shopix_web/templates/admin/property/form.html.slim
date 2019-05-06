@@ -17,6 +17,6 @@
         { name: "name", display_name: "#{gettext("Name")}", type: "string", value: #{to_json(f.data.name_translations)} }
       ],
       name: "property" }
-    window.config.t = #{translations |> Poison.encode! |> raw}
+    window.config.t = #{translations |> Jason.encode! |> raw}
 
   = Bootform.submit gettext("Save")

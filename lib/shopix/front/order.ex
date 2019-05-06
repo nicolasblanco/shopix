@@ -45,7 +45,7 @@ defmodule Shopix.Front.Order do
     order
     |> change()
     |> put_assoc(:line_items, Enum.map(order.line_items, &LineItem.changeset_cache(&1)))
-    |> put_change(:completed_at, DateTime.utc_now())
+    |> put_change(:completed_at, NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second))
     |> put_change(
       :shipping_cost_amount,
       Shopix.ShippingCostCalculator.shipping_cost_for(order, shipping_cost_default_amount)

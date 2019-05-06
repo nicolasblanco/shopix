@@ -3,7 +3,7 @@ defmodule ShopixWeb.StringHelpers do
 
   def to_json(data) do
     data
-    |> Poison.encode!()
+    |> Jason.encode!()
     |> raw
   end
 

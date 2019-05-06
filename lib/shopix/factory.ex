@@ -52,7 +52,7 @@ defmodule Shopix.Factory do
       country_code: "FR",
       phone: "+33673730284",
       vat_percentage: Decimal.new(20),
-      completed_at: DateTime.utc_now(),
+      completed_at: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
       shipping_cost_amount: 10,
       line_items: [build(:line_item)]
     }
