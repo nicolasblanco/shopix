@@ -63,5 +63,5 @@
   "ueberauth_instagram": {:hex, :ueberauth_instagram, "0.2.0", "6a4a1fa8112b240cfc41cf510f167c26dffdb157cee2463b72d20bd33b87f496", [:mix], [{:oauth2, "~> 0.5", [hex: :oauth2, repo: "hexpm", optional: false]}, {:ueberauth, "~> 0.2", [hex: :ueberauth, repo: "hexpm", optional: false]}], "hexpm"},
   "unicode_util_compat": {:hex, :unicode_util_compat, "0.4.1", "d869e4c68901dd9531385bb0c8c40444ebf624e60b6962d95952775cac5e90cd", [:rebar3], [], "hexpm"},
   "yamerl": {:hex, :yamerl, "0.7.0", "e51dba652dce74c20a88294130b48051ebbbb0be7d76f22de064f0f3ccf0aaf5", [:rebar3], [], "hexpm"},
-  "yaml_elixir": {:hex, :yaml_elixir, "2.1.0", "79ec163e0f379dadf4b0e8b5162567dc1feb96c3cfa793105869e2c616ab4342", [:mix], [{:yamerl, "~> 0.7", [hex: :yamerl, repo: "hexpm", optional: false]}], "hexpm"},
+  "yaml_elixir": {:hex, :yaml_elixir, "2.3.0", "3629761bdb574144fd54726c4d090c67a1117559b6a59dc9323ff366c1b1ff4b", [:mix], [{:yamerl, "~> 0.7", [hex: :yamerl, repo: "hexpm", optional: false]}], "hexpm"},
 }
