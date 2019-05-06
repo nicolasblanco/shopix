@@ -58,7 +58,7 @@ defmodule Shopix.Mixfile do
       {:scrivener_html, "~> 1.7"},
       {:deferred_config, "~> 0.1.0"},
       {:liquid, "~> 0.9.1"},
-      {:cors_plug, "~> 1.2"},
+      {:cors_plug, "~> 2.0"},
       {:plug_cowboy, "~> 1.0"},
       {:dialyxir, "~> 0.5", only: [:dev], runtime: false}
     ]
