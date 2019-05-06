@@ -5,7 +5,7 @@ defmodule ShopixWeb.Front.CheckoutController do
   alias Shopix.{Front, Mailer}
   alias ShopixWeb.Email
 
-  plug(ShopixWeb.Plug.Translations)
+  plug ShopixWeb.Plug.Translations
 
   def address(conn, _params) do
     render(conn, "address.html",

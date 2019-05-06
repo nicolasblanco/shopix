@@ -2,7 +2,7 @@ defmodule ShopixWeb.Front.CartController do
   use ShopixWeb, :controller
   alias Shopix.Front
 
-  plug(ShopixWeb.Plug.Translations)
+  plug ShopixWeb.Plug.Translations
 
   def show(conn, _params) do
     render(conn, "show.html", order: conn.assigns.current_order)

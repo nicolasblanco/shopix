@@ -2,7 +2,7 @@ defmodule ShopixWeb.Front.ProductController do
   use ShopixWeb, :controller
   alias Shopix.Front
 
-  plug(ShopixWeb.Plug.Translations)
+  plug ShopixWeb.Plug.Translations
 
   def show(conn, %{"id" => id}) do
     product = Front.get_product_by_slug!(id, conn.assigns.current_locale)

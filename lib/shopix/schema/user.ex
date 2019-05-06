@@ -10,7 +10,6 @@ defmodule Shopix.Schema.User do
     field :email, :string
     field :encrypted_password, :string
     field :password, :string, virtual: true
-    field :instagram_auth, :map, default: %{}
 
     timestamps()
   end

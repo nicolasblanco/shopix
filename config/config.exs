@@ -28,18 +28,9 @@ config :phoenix, :template_engines,
   slim: PhoenixSlime.Engine,
   slime: PhoenixSlime.Engine
 
-config :guardian, Guardian,
-  # optional
-  allowed_algos: ["HS512"],
-  # optional
-  verify_module: Guardian.JWT,
-  issuer: "Shopix",
-  ttl: {30, :days},
-  allowed_drift: 2000,
-  # optional
-  verify_issuer: true,
-  secret_key: "CsfYzeprlaahsx2TI0HGimAE6lAi+yRGhfAbEngcwKxP1FyqapJsWjU/xtEJJ/2c",
-  serializer: ShopixWeb.GuardianSerializer
+config :shopix, Shopix.Guardian,
+  issuer: "shopix",
+  secret_key: "2PsWyRBou2HTTI6iPoLm0YOuwlA0W8iEBn8/Uo1rvIuT7de9OGp9VE7a0YLra8Kw"
 
 config :money,
   default_currency: :EUR,

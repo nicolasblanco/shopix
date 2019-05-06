@@ -14,7 +14,7 @@ defmodule Shopix.Admin.User do
 
   def changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:email, :password, :instagram_auth])
+    |> cast(attrs, [:email, :password])
     |> validate_required([:email])
     |> put_encrypted_password()
     |> unique_constraint(:email)

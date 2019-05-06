@@ -3,7 +3,7 @@ defmodule ShopixWeb.Front.HomeController do
   alias Shopix.Front
   import ShopixWeb.TranslationHelpers
 
-  plug(ShopixWeb.Plug.Translations)
+  plug ShopixWeb.Plug.Translations
 
   def index(%{assigns: %{global_config: %{shop_opened: true}}} = conn, _params) do
     render(conn, "index.html")

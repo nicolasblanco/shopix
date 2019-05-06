@@ -22,16 +22,18 @@ defmodule ShopixWeb.ConnCase do
       import ShopixWeb.Router.Helpers
       import Shopix.Factory
 
+      alias Shopix.Guardian
+
       # The default endpoint for testing
       @endpoint ShopixWeb.Endpoint
 
-      def guardian_login(user, token \\ :token, opts \\ []) do
+      def guardian_login(user, key \\ :admin) do
         insert(:global_config)
 
         build_conn()
         |> bypass_through(ShopixWeb.Router, [:browser])
         |> get("/")
-        |> Guardian.Plug.sign_in(user, token, opts)
+        |> Guardian.Plug.sign_in(user, %{}, key: key)
         |> send_resp(200, "Flush the session yo")
         |> recycle()
       end
