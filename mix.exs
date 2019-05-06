@@ -48,7 +48,7 @@ defmodule Shopix.Mixfile do
       {:yaml_elixir, "~> 2.1"},
       {:decimal, "~> 1.0"},
       {:ex_machina, "~> 2.0"},
-      {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.0", only: [:dev, :test], runtime: false},
       {:jason, "~> 1.1"},
       {:sentry, "~> 7.0"},
       {:timex, "~> 3.1"},
