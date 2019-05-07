@@ -4,7 +4,7 @@ defmodule Shopix.VatCalculatorTest do
 
   describe "ati_to_et/1" do
     test "takes a All Tax Included price and returns an Excluded Taxes price as integer" do
-      assert VatCalculator.ati_to_et(Decimal.new(20.0), 10000) == 8333
+      assert VatCalculator.ati_to_et(Decimal.from_float(20.0), 10000) == 8333
     end
   end
 end
