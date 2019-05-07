@@ -38,7 +38,7 @@ defmodule Shopix.Mixfile do
       {:phoenix_html, "~> 2.6"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
-      {:phoenix_slime, github: "slime-lang/phoenix_slime"},
+      {:phoenix_slime, "~> 0.12"},
       {:slugger, "~> 0.2"},
       {:comeonin, "~> 4.0"},
       {:bcrypt_elixir, "~> 1.0"},
