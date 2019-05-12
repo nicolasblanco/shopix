@@ -2,7 +2,8 @@ defmodule ShopixWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :shopix
 
   socket "/socket", ShopixWeb.UserSocket,
-    websocket: true # or list of options
+    # or list of options
+    websocket: true
 
   # Serve at "/" the static files from "priv/static" directory.
   #

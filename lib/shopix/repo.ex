@@ -1,6 +1,8 @@
 defmodule Shopix.Repo do
-  use Ecto.Repo, otp_app: :shopix,
-                 adapter: Ecto.Adapters.Postgres
+  use Ecto.Repo,
+    otp_app: :shopix,
+    adapter: Ecto.Adapters.Postgres
+
   use Scrivener, page_size: 25
 
   @doc """
