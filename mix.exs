@@ -30,7 +30,7 @@ defmodule Shopix.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.4.0"},
+      {:phoenix, "~> 1.4"},
       {:phoenix_pubsub, "~> 1.0"},
       {:ecto_sql, "~> 3.0"},
       {:phoenix_ecto, "~> 4.0"},
@@ -59,7 +59,7 @@ defmodule Shopix.Mixfile do
       {:deferred_config, "~> 0.1.0"},
       {:liquid, "~> 0.9.1"},
       {:cors_plug, "~> 2.0"},
-      {:plug_cowboy, "~> 1.0"},
+      {:plug_cowboy, "~> 2.0"},
       {:dialyxir, "~> 0.5", only: [:dev], runtime: false}
     ]
   end

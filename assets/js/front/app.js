@@ -1,3 +1,4 @@
+import css from "../../css/admin/app.css";
 import "phoenix_html"
 import _ from "lodash"
 
