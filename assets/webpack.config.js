@@ -22,7 +22,8 @@ module.exports = (env, options) => ({
   resolve: {
     alias: {
       vue$: "vue/dist/vue.common.js"
-    }
+    },
+    extensions: ['*', '.js', '.vue', '.json']
   },
   module: {
     rules: [
