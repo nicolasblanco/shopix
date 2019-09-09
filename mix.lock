@@ -2,7 +2,7 @@
   "bamboo": {:hex, :bamboo, "1.2.0", "8aebd24f7c606c32d0163c398004a11608ca1028182a169b2e527793bfab7561", [:mix], [{:hackney, ">= 1.13.0", [hex: :hackney, repo: "hexpm", optional: false]}, {:plug, "~> 1.0", [hex: :plug, repo: "hexpm", optional: false]}, {:poison, ">= 1.5.0", [hex: :poison, repo: "hexpm", optional: true]}], "hexpm"},
   "base64url": {:hex, :base64url, "0.0.1", "36a90125f5948e3afd7be97662a1504b934dd5dac78451ca6e9abf85a10286be", [:rebar], [], "hexpm"},
   "bcrypt_elixir": {:hex, :bcrypt_elixir, "1.1.1", "6b5560e47a02196ce5f0ab3f1d8265db79a23868c137e973b27afef928ed8006", [:make, :mix], [{:elixir_make, "~> 0.4", [hex: :elixir_make, repo: "hexpm", optional: false]}], "hexpm"},
-  "bootform": {:git, "https://github.com/nicolasblanco/elixir-bootform.git", "13b563f1b25fc6cf01af43cca5e6a37fefbfdb0e", []},
+  "bootform": {:git, "https://github.com/nicolasblanco/elixir-bootform.git", "69b5f51cb5cb7eb29686157494789cbbc5eddef6", []},
   "braintree": {:hex, :braintree, "0.10.0", "bb0e1a03b22918334afdf35bf087ca4a1b429a74d1fff578d252c658a7a9ef65", [:mix], [{:hackney, "~> 1.15", [hex: :hackney, repo: "hexpm", optional: false]}], "hexpm"},
   "bunt": {:hex, :bunt, "0.2.0", "951c6e801e8b1d2cbe58ebbd3e616a869061ddadcc4863d0a2182541acae9a38", [:mix], [], "hexpm"},
   "certifi": {:hex, :certifi, "2.5.1", "867ce347f7c7d78563450a18a6a28a8090331e77fa02380b4a21962a65d36ee5", [:rebar3], [{:parse_trans, "~>3.3", [hex: :parse_trans, repo: "hexpm", optional: false]}], "hexpm"},
