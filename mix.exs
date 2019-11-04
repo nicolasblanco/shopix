@@ -40,7 +40,7 @@ defmodule Shopix.Mixfile do
       {:gettext, "~> 0.11"},
       {:phoenix_slime, "~> 0.12"},
       {:slugger, "~> 0.2"},
-      {:comeonin, "~> 4.0"},
+      {:comeonin, "~> 5.1"},
       {:bcrypt_elixir, "~> 1.0"},
       {:guardian, "~> 1.2.1"},
       {:money, "~> 1.4.0"},
