@@ -1,0 +1,35 @@
+version: 2
+registries:
+  hex-organization-oban:
+    type: hex-organization
+    organization: oban
+    key: "${{secrets.HEX_ORGANIZATION_OBAN_KEY}}"
+
+updates:
+- package-ecosystem: mix
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "11:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: ecto_sql
+    versions:
+    - 3.5.4
+    - 3.6.0
+  - dependency-name: bamboo
+    versions:
+    - 1.6.0
+    - 1.7.0
+    - 1.7.1
+    - 2.0.0
+    - 2.0.1
+    - 2.0.2
+  - dependency-name: postgrex
+    versions:
+    - 0.15.8
+  - dependency-name: plug_cowboy
+    versions:
+    - 2.4.1
+  registries:
+  - hex-organization-oban
