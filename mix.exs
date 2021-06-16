@@ -45,7 +45,7 @@ defmodule Shopix.Mixfile do
       {:guardian, "~> 1.2.1"},
       {:money, "~> 1.4.0"},
       {:braintree, "~> 0.8"},
-      {:bamboo, "~> 1.1"},
+      {:bamboo, "~> 2.2"},
       {:yaml_elixir, "~> 2.1"},
       {:decimal, "~> 1.0"},
       {:ex_machina, "~> 2.0"},
