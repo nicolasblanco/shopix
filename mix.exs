@@ -42,7 +42,7 @@ defmodule Shopix.Mixfile do
       {:slugger, "~> 0.2"},
       {:comeonin, "~> 4.0"},
       {:bcrypt_elixir, "~> 1.0"},
-      {:guardian, "~> 1.2.1"},
+      {:guardian, "~> 2.2.0"},
       {:money, "~> 1.4.0"},
       {:braintree, "~> 0.8"},
       {:bamboo, "~> 1.1"},
